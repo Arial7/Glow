@@ -1,0 +1,6 @@
+#executables
+glow
+#object files
+*.o
+#temp files
+*~
