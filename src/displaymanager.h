@@ -1,8 +1,12 @@
+#pragma once
+
 #include <SDL2/SDL.h>
 
 #include <GL/glew.h>
 
 //TODO: maybe implement multiple windows (most games don't need that)
+
+namespace Glow {
 
 class DisplayManager {
 
@@ -15,10 +19,12 @@ class DisplayManager {
     private:
         int width = -1;
         int height = -1;
-        SDL_Window *window = nullptr; //Engine only supports one window
-        SDL_GLContext context = nullptr; //Engine only supports one context
+        SDL_Window *window = NULL; //Engine only supports one window
+        SDL_GLContext context = NULL; //Engine only supports one context
 
         void initSDL(const char *_title);
         void initGL();
 
 };
+
+}

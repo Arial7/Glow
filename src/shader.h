@@ -1,7 +1,8 @@
-#ifndef SHADER_H
-#define SHADER_H
+#pragma once
 
 #include <GL/glew.h>
+
+namespace Glow {
 
 class Shader {
     public:
@@ -17,4 +18,4 @@ class Shader {
 
 };
 
-#endif
+}

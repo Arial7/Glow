@@ -1,7 +1,9 @@
 #include "time.h"
 #include <SDL2/SDL.h>
 #include <iostream>
-//Workaround for "undefined reference"
+
+namespace Glow {
+
 static long lastTime = 0;
 static long currentTime = 0;
 static long delta = 0;
@@ -24,4 +26,6 @@ long Time::deltaTime() {
 
 float Time::deltaTimeSecs() {
 	return delta / 1000.0f;
+}
+
 }

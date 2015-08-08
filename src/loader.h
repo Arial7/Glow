@@ -1,8 +1,9 @@
-#ifndef LOADER_H
-#define LOADER_H
+#pragma once
 
-#include <SDL2/SDL_opengl.h>
+#include <GL/glew.h>
 #include <string>
+
+namespace Glow {
 
 class Loader {
 	public:
@@ -12,4 +13,4 @@ class Loader {
 		static std::string imgPath;
 };
 
-#endif
+}

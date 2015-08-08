@@ -1,5 +1,4 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
 
 #define GL3_PROTOTYPES 1
 #include <SDL2/SDL.h>
@@ -7,9 +6,11 @@
 #include <FTGL/ftgl.h>
 #include <iostream>
 
-#include "gameObject.h"
+#include "gameobject.h"
 #include "vec3.h"
 #include "shader.h"
+
+namespace Glow {
 
 class Renderer{
     public:
@@ -25,4 +26,5 @@ class Renderer{
 
 };
 
-#endif
+}
+

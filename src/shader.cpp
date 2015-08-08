@@ -8,6 +8,8 @@
 
 #include "log.h"
 
+namespace Glow {
+
 Shader::Shader(const char *vertexFile, const char *fragmentFile){
     GLuint vertexShader, fragmentShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -87,4 +89,6 @@ void Shader::bind(){
 
 void Shader::unbind(){
     glUseProgram(0);
+}
+
 }

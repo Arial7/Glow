@@ -1,5 +1,7 @@
 #include "textures.h"
 
+namespace Glow {
+
 GLuint Textures::icon_health = 0;
 GLuint Textures::icon_play = 0;
 GLuint Textures::icon_pause = 0;
@@ -28,4 +30,4 @@ void Textures::deleteTextures() {
 
 }
 
-
+}

@@ -1,6 +1,8 @@
 #include "renderer.h"
 #include <iostream>
 
+namespace Glow {
+
 Renderer::Renderer() {
     //TODO: load the font when a loadup function is called
 	//load the font
@@ -33,7 +35,6 @@ void Renderer::renderAll(){
 
 void Renderer::renderVAO(GLuint vaoID){
     mainShader.bind();
-       
     glBindVertexArray(vaoID);
     glEnableVertexAttribArray(0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
@@ -45,4 +46,7 @@ void Renderer::renderVAO(GLuint vaoID){
 
 void Renderer::prepare() {
     glClear(GL_COLOR_BUFFER_BIT);
+}
+
+
 }

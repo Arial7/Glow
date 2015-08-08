@@ -1,10 +1,9 @@
-#ifndef UTILS_H
-#define UTILS_H
+#pragma once
 
-#include "point.h"
+namespace Glow {
 
 class Utils {
 
 };
 
-#endif
+}

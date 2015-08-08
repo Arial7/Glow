@@ -2,6 +2,8 @@
 #include <time.h>
 #include "log.h"
 
+namespace Glow {
+
 void log(LogLevel level, const char *message){
     const char *levelString;
     switch(level){
@@ -65,3 +67,4 @@ void log(LogLevel level, const char *message, const char *source, int line){
     #endif
 }
 
+}

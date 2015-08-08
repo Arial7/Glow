@@ -1,4 +1,6 @@
-#include "gameObject.h"
+#include "gameobject.h"
+
+namespace Glow {
 
 GameObject::GameObject(){
 	width = 32;
@@ -35,4 +37,4 @@ void GameObject::setTexture(GLuint texture) {
 	this->texture = texture;
 }
 
-
+}

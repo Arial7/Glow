@@ -5,7 +5,6 @@
 
 #include "displaymanager.h"
 #include "renderer.h"
-#include "errorHandler.h"
 #include "time.h"
 #include "log.h"
 
@@ -15,6 +14,8 @@
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
 #define WINDOW_TITLE "Glow3D - Pascal Riesinger"
+
+namespace Glow {
 
 //set to true when the game should exit
 bool quit = false;
@@ -34,31 +35,28 @@ GLuint vboID;
 GLuint vaoID;
 
 //function prototypes
-void loadup(void);
-void gameloop(void);
-void update(void);
-void cleanUp(void);
+void start();
+void loadup();
+void gameloop();
+void update();
+void cleanup();
 
-int main(int argc, char *argv[]){
+void start() {
     displayManager.createWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE);
-    //load everything
-	//TODO: create a proper resource management system
+    //TODO:create proper resource management system   
     loadup();
-	//start the gameloop
-	gameloop();
-	//do some cleanup if the game exited
-    cleanUp();
-
-	return 0;
+    gameloop();
+    cleanup();
 }
+
 
 void loadup() {
 	renderer.init();
     
     //initialize the timing subsystem
-	Time::init();
+    Time::init();
     
-
+    //TODO: TEMP
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
@@ -102,11 +100,17 @@ void update(){
 }
 
 
-void cleanUp(){
+void cleanup(){
     displayManager.destroyWindow();
 	
 	SDL_Quit();
 }
 
 
+}
 
+
+int main(int argc, char *argv[]){
+    Glow::start();
+	return 0;
+}

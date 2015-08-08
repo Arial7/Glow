@@ -1,8 +1,11 @@
-#ifndef TEXTURES_H
-#define TEXTURES_H
+#pragma once
 
-#include <SDL2/SDL_opengl.h>
+#include <GL/glew.h>
 #include "loader.h"
+
+namespace Glow {
+
+//TODO: better texture management system
 
 class Textures {
 	public:
@@ -17,4 +20,4 @@ class Textures {
 
 };
 
-#endif
+}

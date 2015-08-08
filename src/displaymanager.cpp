@@ -2,6 +2,8 @@
 #include "log.h"
 #include <string>
 
+namespace Glow {
+
 void DisplayManager::createWindow(int _width, int _height, const char *_title){
     width = _width;
     height = _height;
@@ -16,28 +18,32 @@ void DisplayManager::initSDL(const char *_title){
     //networking have to be initialized as well.
 
     SDL_Init(SDL_INIT_VIDEO);
-    //Set OpenGL flags
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     
     //create the window and check if the creation failed
     window = SDL_CreateWindow(_title, 0, 0, width, height, SDL_WINDOW_OPENGL |
             SDL_WINDOW_SHOWN);
-    if (window == nullptr || window == NULL) {
-        //TODO: implement logging
+    if (window == NULL) {
+        log(LogLevel::FATAL, "could not create window, aborting",
+                "DisplayManager");
         destroyWindow();
+        abort();
     }
 
 } 
 
 void DisplayManager::initGL(){
     log(LogLevel::INFO, "initializing OpenGL", "DisplayManager");
+    //Set OpenGL flags
+    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    //SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
     //create the OpenGL context and check if creation failed
     context = SDL_GL_CreateContext(window);
-    if (context == nullptr || context == NULL) {
-        //TODO: implement logging
+    if (context == NULL) {
+        log(LogLevel::FATAL, "could not create GL context, aborting",
+                "DisplayManager");
         destroyWindow();
+        abort();
 
     }
     //initialize GLEW
@@ -81,4 +87,6 @@ DisplayManager::~DisplayManager(){
 //GETTERS & SETTERS
 SDL_Window *DisplayManager::getWindow(){
     return window;
+}
+
 }

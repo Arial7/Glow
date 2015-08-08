@@ -1,5 +1,6 @@
-#ifndef TIME_H
-#define TIME_H
+#pragma once
+
+namespace Glow {
 
 class Time {
 	public:
@@ -9,5 +10,4 @@ class Time {
 		static void update();		
 };
 
-#endif
-
+}

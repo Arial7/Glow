@@ -1,8 +1,9 @@
-#ifndef GAMEOBJECT_H
-#define GAMEOBJECT_H
+#pragma once
 
-#include <SDL2/SDL_opengl.h>
+#include <GL/glew.h>
 #include "vec3.h"
+
+namespace Glow {
 
 class GameObject {
 	public:
@@ -21,5 +22,5 @@ class GameObject {
 		float height;
 };
 
+}
 
-#endif

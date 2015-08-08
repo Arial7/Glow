@@ -1,8 +1,7 @@
-#ifndef LOG_H
-#define LOG_H
+#pragma once
 
-
-//TODO: implement logging on an extra thread
+namespace Glow {
+//TODO: implement logging on an extra thread (with a logging queue)
 
 enum LogLevel {
     INFO,
@@ -16,4 +15,4 @@ void log(LogLevel level, const char *message, const char *source);
 void log(LogLevel level, const char *message, const char *source,
         int line);
 
-#endif
+}
