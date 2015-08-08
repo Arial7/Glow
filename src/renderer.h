@@ -19,7 +19,7 @@ class Renderer{
         void renderText(const char *_text, float _x, float _y);
         void renderAll();
         void prepare();
-        void renderVAO(GLuint vaoID);
+        void renderVAO(GLuint vaoID, GLuint vboID);
     private:
         FTPixmapFont *font;
         Shader mainShader;

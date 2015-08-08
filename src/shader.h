@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
+#include <string>
 
 namespace Glow {
 
@@ -14,7 +15,7 @@ class Shader {
         void bindAttribute(int attribute, const char *variableName);
     private:
         GLuint id;
-        const char *loadFile(const char *path);
+        std::string *loadFile(const char *path);
 
 };
 

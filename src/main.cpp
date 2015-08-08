@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+
 #include "displaymanager.h"
 #include "renderer.h"
 #include "time.h"
@@ -10,6 +11,8 @@
 
 #include "vec3.h"
 
+
+//TODO: create settings parser to read these settings from a file
 //the size of the window, defaulted to HD, which should be the minimum size of a monitor nowadays
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 720
@@ -25,7 +28,7 @@ Renderer renderer;
 DisplayManager displayManager;
 
 //TODO: TEMP
-float vertices[] = {
+const GLfloat vertices[] = {
     -1.0, -1.0, 0.0,
      1.0, -1.0, 0.0,
      0.0,  1.0, 0.0
@@ -49,6 +52,15 @@ void start() {
     cleanup();
 }
 
+void checkGLError(const char *msg){
+    int error = glGetError();
+    if (error != 0){
+        std::string message = msg; 
+        message.append(std::to_string(error));
+        log(LogLevel::ERROR, message.c_str());
+    }
+}
+
 
 void loadup() {
 	renderer.init();
@@ -56,18 +68,23 @@ void loadup() {
     //initialize the timing subsystem
     Time::init();
     
+    checkGLError("nothing done yet");
+
     //TODO: TEMP
+    glGenVertexArrays(1, &vaoID);
+    checkGLError("created vao");
+    
+    glBindVertexArray(vaoID);
+    glEnableVertexAttribArray(0);
+    
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
     
-    glGenVertexArrays(1, &vaoID);
-    glBindVertexArray(vaoID);
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+    checkGLError("after buffering");
+
     glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glDisableVertexAttribArray(0);
     glBindVertexArray(0);
 
 }
@@ -94,7 +111,7 @@ void gameloop(){
 void update(){
     //TODO: update the input
     renderer.prepare();
-    renderer.renderVAO(vaoID);
+    renderer.renderVAO(vaoID, vboID);
     //after everything is done updating render every element
     renderer.renderAll();
 }

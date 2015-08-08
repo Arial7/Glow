@@ -10,15 +10,25 @@
 
 namespace Glow {
 
+//TODO: cleanup
+
 Shader::Shader(const char *vertexFile, const char *fragmentFile){
     GLuint vertexShader, fragmentShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    
-    const char *vertexSource = loadFile(vertexFile);
-    const char *fragmentSource = loadFile(fragmentFile);
+ 
+    std::string *vertexString = loadFile(vertexFile);
+    std::string *fragmentString = loadFile(fragmentFile);
+
+    const char *vertexSource = vertexString->c_str();
+    const char *fragmentSource = fragmentString->c_str();
 
     glShaderSourceARB(vertexShader, 1, &vertexSource, NULL);
+    glShaderSourceARB(fragmentShader, 1, &fragmentSource, NULL);
+
+    delete vertexString;
+    delete fragmentString;
+
 
     //compile and check the vertex shader
     glCompileShader(vertexShader);
@@ -32,17 +42,30 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     std::vector<GLchar> vertShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(vertexShader, logLength, NULL, &vertShaderError[0]);
     
-    if((std::string(&vertShaderError[0])).c_str() != "")
-//        log(LogLevel::ERROR, "error while compiling vertex shader: "
-//                + (std::string(&vertShaderError[0])).c_str()));
+    if((std::string(&vertShaderError[0])).compare("") != 0){
+        std::string error = std::string(&vertShaderError[0]);
+        std::string message = std::string("error while compiling vertex shader: ");
+        message += error;
+        log(LogLevel::ERROR, message.c_str());
 
-    
+    }
    
 
-    glShaderSourceARB(fragmentShader, 1, &fragmentSource, NULL);
     //compile and check fragment shader
     glCompileShader(fragmentShader);
-    //TODO: implement error checking (and logging)
+    
+    glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
+    glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
+    std::vector<GLchar> fragShaderError((logLength > 1) ? logLength : 1);
+    glGetShaderInfoLog(fragmentShader, logLength, NULL, &fragShaderError[0]);
+    
+    if((std::string(&fragShaderError[0])).compare("") != 0){
+        std::string error = std::string(&fragShaderError[0]);
+        std::string message = std::string("error while compiling fragment shader: ");
+        message += error;
+        log(LogLevel::ERROR, message.c_str());
+
+    }
     
     //create and link the program
     id = glCreateProgram();
@@ -50,8 +73,19 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glAttachShader(id, fragmentShader);
 
     glLinkProgram(id);
-    //TODO: implement error checking (and logging)
+    //check for errors
+    glGetProgramiv(id, GL_LINK_STATUS, &result);
+    glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
+    std::vector<GLchar> programError( (logLength > 1) ? logLength : 1 );
+    glGetProgramInfoLog(id, logLength, NULL, &programError[0]);
     
+    if((std::string(&programError[0])).compare("") != 0) {
+        std::string error = std::string(&programError[0]);
+        std::string message = std::string("error while linking program: ");
+        message += error;
+        log(LogLevel::ERROR, message.c_str());
+    }
+ 
     //clean up the shaders
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
@@ -66,21 +100,23 @@ void Shader::bindAttribute(int attribute, const char *variableName){
     glBindAttribLocation(id, attribute, variableName);
 }
 
-const char *Shader::loadFile(const char *path){
-    std::cout << "loading shader " << path << std::endl;
+std::string *Shader::loadFile(const char *path){
     std::ifstream file(path);
     std::string line;
-    std::string content;
+    std::string *content = new std::string();
     if(file.is_open()){
         while(std::getline(file, line)){
-            content += (line + "\n");
+            content->append(line + "\n");
         }
         file.close();
     }
     else {
-        //TODO: implement logging : unable to open file
+        std::string msg = "file ";
+        msg.append(path);
+        msg.append(" could not be opened");
+        log(LogLevel::WARN, msg.c_str(), "Shader");
     }
-    return content.c_str();
+    return content;
 }
 
 void Shader::bind(){
