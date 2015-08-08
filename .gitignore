@@ -4,3 +4,4 @@ glow
 *.o
 #temp files
 *~
+*.swp
