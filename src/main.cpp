@@ -52,37 +52,19 @@ void start() {
     cleanup();
 }
 
-void checkGLError(const char *msg){
-    int error = glGetError();
-    if (error != 0){
-        std::string message = msg; 
-        message.append(std::to_string(error));
-        log(LogLevel::ERROR, message.c_str());
-    }
-}
-
-
 void loadup() {
 	renderer.init();
     
     //initialize the timing subsystem
     Time::init();
-    
-    checkGLError("nothing done yet");
 
     //TODO: TEMP
     glGenVertexArrays(1, &vaoID);
-    checkGLError("created vao");
-    
     glBindVertexArray(vaoID);
     glEnableVertexAttribArray(0);
-    
     glGenBuffers(1, &vboID);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    
-    checkGLError("after buffering");
-
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisableVertexAttribArray(0);
     glBindVertexArray(0);

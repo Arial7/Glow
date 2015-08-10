@@ -17,14 +17,14 @@ Renderer::Renderer() {
 */
 }
 
+Renderer::~Renderer(){
+    delete mainShader;
+}
+
 void Renderer::init(){
-    mainShader = Shader("./res/shaders/default.vert",
+    mainShader = new Shader("./res/shaders/default.vert",
             "./res/shaders/default.frag");
-    //mainShader.bindAttribute(0, "position");
-
-    int t = glGetError();
-
-    std::cout << "after renderer init: " << t << std::endl;
+    mainShader->bindAttribute(0, "position");
 }
 
 void Renderer::renderText(const char *_text, float _x, float _y){
@@ -38,22 +38,23 @@ void Renderer::renderAll(){
 }
 
 void Renderer::renderVAO(GLuint vaoID, GLuint vboID){
-    mainShader.bind();
- 
-    glColor3f(1.0, 0.0, 1.0);
-
+    //bind everything for rendering
+    mainShader->bind();
     glBindVertexArray(vaoID);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 
+    //draw
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
     glDrawArrays(GL_TRIANGLES, 0, 3);
+
     //disable attrib arrays and unbind buffer
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glDisableVertexAttribArray(0);
     glBindVertexArray(0);
-    mainShader.unbind();
+    mainShader->unbind();
 }
+
 
 void Renderer::prepare() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

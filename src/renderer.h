@@ -15,6 +15,7 @@ namespace Glow {
 class Renderer{
     public:
         Renderer();
+        ~Renderer();
         void init();
         void renderText(const char *_text, float _x, float _y);
         void renderAll();
@@ -22,7 +23,7 @@ class Renderer{
         void renderVAO(GLuint vaoID, GLuint vboID);
     private:
         FTPixmapFont *font;
-        Shader mainShader;
+        Shader *mainShader;
 
 };
 

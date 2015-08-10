@@ -29,7 +29,6 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     delete vertexString;
     delete fragmentString;
 
-
     //compile and check the vertex shader
     glCompileShader(vertexShader);
     
@@ -41,13 +40,11 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> vertShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(vertexShader, logLength, NULL, &vertShaderError[0]);
-    
     if((std::string(&vertShaderError[0])).compare("") != 0){
         std::string error = std::string(&vertShaderError[0]);
         std::string message = std::string("error while compiling vertex shader: ");
         message += error;
         log(LogLevel::ERROR, message.c_str());
-
     }
    
 
@@ -58,7 +55,6 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> fragShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(fragmentShader, logLength, NULL, &fragShaderError[0]);
-    
     if((std::string(&fragShaderError[0])).compare("") != 0){
         std::string error = std::string(&fragShaderError[0]);
         std::string message = std::string("error while compiling fragment shader: ");
@@ -69,6 +65,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     
     //create and link the program
     id = glCreateProgram();
+
     glAttachShader(id, vertexShader);
     glAttachShader(id, fragmentShader);
 
