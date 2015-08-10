@@ -15,6 +15,9 @@ enum LogLevel {
 //const char *
 void log(LogLevel level, const char *message);
 void log(LogLevel level, const char *message, const char *source);
-void log(LogLevel level, const char *message, const char *source,
-        int line);
+
+//std::string
+void log(LogLevel level, std::string message);
+void log(LogLevel level, std::string message, std::string source);
+
 }

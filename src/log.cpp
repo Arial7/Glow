@@ -23,6 +23,7 @@ void log(LogLevel level, const char *message){
     #ifndef NDEBUG
     std::cout << levelString << message << std::endl; 
     #endif
+
 }
 
 void log(LogLevel level, const char *message, const char *source){
@@ -44,9 +45,10 @@ void log(LogLevel level, const char *message, const char *source){
     #ifndef NDEBUG
     std::cout << levelString << "[" << source << "]" << message << std::endl; 
     #endif
+
 }
-void log(LogLevel level, const char *message, const char *source, int line){
-    const char *levelString;
+void log(LogLevel level, std::string message){
+    std::string levelString;
     switch(level){
         case INFO:
             levelString = "[INFO]";
@@ -62,9 +64,28 @@ void log(LogLevel level, const char *message, const char *source, int line){
             break;
     }
     #ifndef NDEBUG
-    std::cout << levelString << "[" << source << "]" << message 
-        << "(on line: " << line << ")" << std::endl; 
+    std::cout << levelString << message << std::endl;
     #endif
 }
 
+void log(LogLevel level, std::string message, std::string source){
+    std::string levelString;
+    switch(level){
+        case INFO:
+            levelString = "[INFO]";
+            break;
+        case WARN:
+            levelString = "[WARN]";
+            break;
+        case ERROR:
+            levelString = "[ERROR]";
+            break;
+        case FATAL:
+            levelString = "[FATAL]";
+            break;
+    }
+    #ifndef NDEBUG
+    std::cout << levelString << "[" << source << "]" << message << std::endl;
+    #endif
+}
 }
