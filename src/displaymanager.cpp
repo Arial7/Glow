@@ -54,22 +54,13 @@ void DisplayManager::initGL(){
         abort();
     }
 
-    int glerr = glGetError();
-    std::cout << "after init: " << glerr << std::endl; 
-
     glClearColor(0.0, 0.0, 0.0, 1.0);
-    
-    glerr = glGetError();
-    std::cout << "after clearColor: " << glerr << std::endl;
 
     //TODO: maybe swap to (0, height, width, 0);
  //   glViewport(0, 0, width, height);
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-   
-    glerr = glGetError();
-    std::cout << "after blendfunct: " << glerr << std::endl;
 
     glDisable(GL_DEPTH_TEST);
     glDisable(GL_LIGHTING);

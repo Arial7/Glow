@@ -10,13 +10,14 @@ namespace Glow {
 
     class EntityManager {
         public:
+            ~EntityManager();
             void buildEntity(std::vector<Component*> components);
-            void addComponent(int entityID, Component* component);
-            void deleteEntity(int entityID);
+            void addComponent(unsigned int entityID, Component *component);
+            void deleteEntity(unsigned int entityID);
         private:
-            std::vector<int>entities_;
-            std::vector<Component*>components_;
-            int lastID = 0;
+            std::vector<unsigned int> entities_;
+            std::vector<Component*> components_;
+            unsigned int currentID = 0;
     };
 
 }

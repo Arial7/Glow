@@ -10,7 +10,7 @@ namespace Glow {
         private:
             Vec3 dimensions_;
         public:
-            QuadComponent(int entityID, Vec3 dimensions) : Component(entityID),
+            QuadComponent(Vec3 dimensions) : Component(),
                 dimensions_(dimensions) {};
             
             Vec3 getDimensions() {return dimensions_;};
