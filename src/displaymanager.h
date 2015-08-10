@@ -9,20 +9,22 @@
 namespace Glow {
 
 class DisplayManager {
-
+    private:
+        int width_ = 0;
+        int height_ = 0;
+        SDL_Window *window_ = NULL; //only one window supported for now
+        SDL_GLContext context_ = NULL; //only one context supported for now
     public:
-        void createWindow(int _width, int _height, const char *_title);
-        void destroyWindow();
         ~DisplayManager();
+        void createWindow(int width, int height, const char *title);
+        void destroyWindow();
+        void swapWindow();
+        void window_resized(int width, int height);
         
         SDL_Window *getWindow();
-    private:
-        int width = -1;
-        int height = -1;
-        SDL_Window *window = NULL; //Engine only supports one window
-        SDL_GLContext context = NULL; //Engine only supports one context
 
-        void initSDL(const char *_title);
+    private:
+        void initSDL(const char *title);
         void initGL();
 
 };

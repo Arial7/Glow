@@ -1,5 +1,6 @@
 #include "entitymanager.h"
 #include <algorithm>
+#include "log.h"
 
 namespace Glow {
     
@@ -34,6 +35,9 @@ namespace Glow {
         if (position != entities_.end()){
             entities_.erase(position);
         } 
+        else {
+            log(LogLevel::WARN, "trying to delete nonexistent entity", "EntityManager");
+        }
 
     }
 
