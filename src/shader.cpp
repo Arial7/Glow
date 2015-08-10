@@ -40,11 +40,11 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> vertShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(vertexShader, logLength, NULL, &vertShaderError[0]);
-    if((std::string(&vertShaderError[0])).compare("") != 0){
-        std::string error = std::string(&vertShaderError[0]);
-        std::string message = std::string("error while compiling vertex shader: ");
-        message += error;
-        log(LogLevel::ERROR, message.c_str());
+    std::string vertexErrorString(&vertShaderError[0]);
+    if(vertexErrorString.compare("") != 0){
+        std::string message = std::string("error while compiling vertex shader: ") 
+            + vertexErrorString;
+        log(LogLevel::ERROR, message, "Shader");
     }
    
 
@@ -55,11 +55,11 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> fragShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(fragmentShader, logLength, NULL, &fragShaderError[0]);
-    if((std::string(&fragShaderError[0])).compare("") != 0){
-        std::string error = std::string(&fragShaderError[0]);
-        std::string message = std::string("error while compiling fragment shader: ");
-        message += error;
-        log(LogLevel::ERROR, message.c_str());
+    std::string fragmentErrorString(&fragShaderError[0]);
+    if(fragmentErrorString.compare("") != 0){
+        std::string message = std::string("error while compiling fragment shader: ") 
+            + fragmentErrorString;
+        log(LogLevel::ERROR, message, "Shader");
 
     }
     
@@ -75,12 +75,10 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> programError( (logLength > 1) ? logLength : 1 );
     glGetProgramInfoLog(id, logLength, NULL, &programError[0]);
-    
-    if((std::string(&programError[0])).compare("") != 0) {
-        std::string error = std::string(&programError[0]);
-        std::string message = std::string("error while linking program: ");
-        message += error;
-        log(LogLevel::ERROR, message.c_str());
+    std::string programErrorString(&programError[0]);
+    if(programErrorString.compare("") != 0) {
+        std::string message = std::string("error while linking program: ") + programErrorString;
+        log(LogLevel::ERROR, message, "Shader");
     }
  
     //clean up the shaders
@@ -111,7 +109,7 @@ std::string *Shader::loadFile(const char *path){
         std::string msg = "file ";
         msg.append(path);
         msg.append(" could not be opened");
-        log(LogLevel::WARN, msg.c_str(), "Shader");
+        log(LogLevel::WARN, msg, "Shader");
     }
     return content;
 }
