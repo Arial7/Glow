@@ -1,8 +1,16 @@
 #pragma once
 
+#include "presets.h"
+
 #include <GL/glew.h>
-#include "vec3.h"
 #include "component.h"
+
+#ifdef GLOW_PRESET_2D
+    #include "vec2.h"
+#elif defined GLOW_PRESET_3D
+    #include "vec3.h"
+#endif
+
 
 namespace Glow {
 
@@ -12,14 +20,23 @@ class GameObject {
         Component *physics_;
         Component *graphics_;
 	protected:
-		Vec3 position_;
+#ifdef GLOW_PRESET_2D
+        Vec2 position_;
+#elif defined GLOW_PRESET_3D
+        Vec3 position_;
+#endif
     public:
-		GameObject(Component *input, Component *physics, Component *graphics);
+#ifdef GLOW_PRESET_2D
+        GameObject(Vec2 position, Component *input, Component *physics, Component *graphics);
+#elif defined GLOW_PRESET_3D
+        GameObject(Vec3 position, Component *input, Component *physics, Component *graphics);
+#endif
         ~GameObject();
         void update();
         void setInputComponent(Component *component);
         void setPhysicsComponent(Component *component);
         void setGraphicsComponent(Component *component);
+
 
 
 

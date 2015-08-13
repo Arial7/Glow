@@ -1,9 +1,6 @@
 #pragma once
 
-    
-#define GLOW_DEFAULT_WINDOW_WIDTH   1280
-#define GLOW_DEFAULT_WINDOW_HEIGHT  720
-#define GLOW_DEFAULT_WINDOW_TITLE   "Glow3D"
+#include "presets.h"
 
 #include "displaymanager.h"
 #include "entitymanager.h"
