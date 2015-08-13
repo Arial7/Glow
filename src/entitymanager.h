@@ -3,8 +3,6 @@
 #include <vector>
 
 #include "component.h"
-#include "transformcomponent.h"
-#include "quadcomponent.h"
 
 namespace Glow {
 
