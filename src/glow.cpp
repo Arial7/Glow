@@ -4,9 +4,11 @@
 
 namespace Glow {
 
-    bool quit = false;
+    Engine::Engine(){
+    
+    }    
 
-    void initEngine(){
+    void Engine::initEngine(){
         displayManager = new DisplayManager();
         entityManager = new EntityManager();
         renderer = new Renderer();
@@ -19,7 +21,7 @@ namespace Glow {
         Time::init();
     }
 
-    void enterLoop(){
+    void Engine::enterLoop(){
 
         while (!quit) {
             Time::update();
@@ -31,7 +33,7 @@ namespace Glow {
         terminateEngine();
     }
 
-    void pollEvents(){
+    void Engine::pollEvents(){
         //TODO: better event handling (callbacks?)
         SDL_Event event;
         while (SDL_PollEvent (&event)) {
@@ -52,12 +54,12 @@ namespace Glow {
         }
     }
 
-    void update() {
+    void Engine::update() {
         renderer->prepare();
         renderer->renderAll();
     }
 
-    void terminateEngine(){
+    void Engine::terminateEngine(){
         displayManager->destroyWindow();
         SDL_Quit();
         //delete objects
@@ -65,7 +67,7 @@ namespace Glow {
         delete entityManager;
         delete renderer;
     }
-
+    
 
 }
 

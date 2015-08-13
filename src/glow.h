@@ -12,16 +12,22 @@
 
 namespace Glow {
     
-    DisplayManager *displayManager;
-    EntityManager *entityManager;
-    Renderer *renderer;
+    struct Engine {
+        Engine();
 
-    void initEngine();
-    void enterLoop();
-    void pollEvents();
-    void update();
-    void terminateEngine();
+        bool quit = false;
 
+        DisplayManager *displayManager;
+        EntityManager *entityManager;
+        Renderer *renderer;
+
+
+        void initEngine();
+        void enterLoop();
+        void pollEvents();
+        void update();
+        void terminateEngine();
+    };
 }
 
 
