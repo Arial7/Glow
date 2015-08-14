@@ -8,6 +8,7 @@
 
 #include "gameobject.h"
 #include "vec3.h"
+#include "vec2.h"
 #include "shader.h"
 
 namespace Glow {
@@ -15,16 +16,10 @@ namespace Glow {
 class Renderer{
     public:
         Renderer();
-        ~Renderer();
-        void init();
-        void renderText(const char *_text, float _x, float _y);
-        void renderAll();
-        void prepare();
-        void renderVAO(GLuint vaoID, GLuint vboID);
-    private:
-        FTPixmapFont *font;
-        Shader *mainShader;
-
+        virtual ~Renderer(){};
+        virtual void init() = 0;
+        virtual void submit() = 0;
+        virtual void flush() = 0;
 };
 
 }
