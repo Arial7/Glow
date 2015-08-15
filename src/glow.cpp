@@ -5,12 +5,12 @@
 namespace Glow {
 
     Engine::Engine(){
-    
+        eventQueue = new EventQueue();
+        displayManager = new DisplayManager();
     }    
 
     void Engine::initEngine(){
-        displayManager = new DisplayManager();
-
+        
         //TODO: make the engine read settings from somewhere
         displayManager->createWindow(GLOW_WINDOW_WIDTH,
                 GLOW_WINDOW_HEIGHT, 
@@ -57,8 +57,10 @@ namespace Glow {
     void Engine::terminateEngine(){
         displayManager->destroyWindow();
         SDL_Quit();
+
         //delete objects
         delete displayManager;
+        delete eventQueue;
     }
     
 

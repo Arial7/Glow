@@ -1,5 +1,7 @@
 #include "eventqueue.h"
 
+#include <SDL2/SDL.h>
+
 namespace Glow {
     EventQueue::EventQueue(){
 
@@ -25,6 +27,25 @@ namespace Glow {
         }
     }
    
+    void EventQueue::pollEvents(){
+        SDL_Event event;
+        while (SDL_PollEvent (&event)){
+            switch (event.type) {
+                case SDL_QUIT:
+                    currentEvents_.emplace_back(GlowEvent(GLOW_EVENT_ENGINE_SHOULD_EXIT);
+                    break;
+                case SDL_WINDOWEVENT:
+                    switch(event.window.event){
+                        case SDL_WINDOWEVENT_RESIZED:
+                            //TODO: add new window size
+                            currentEvents_.emplace_back(GlowEvent(GLOW_EVENT_WINDOW_RESIZED);
+                    }
+                    break;
+                
+            }
+        }
 
+
+    }
 
 }

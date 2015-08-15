@@ -4,7 +4,7 @@
 
 #include "displaymanager.h"
 #include "renderer.h"
-
+#include "eventqueue.h"
 
 namespace Glow {
     
@@ -14,7 +14,7 @@ namespace Glow {
         bool quit = false;
 
         DisplayManager *displayManager;
-
+        EventQueue *eventQueue;
 
         void initEngine();
         void enterLoop();
