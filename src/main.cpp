@@ -50,6 +50,6 @@ void gameloop(){
     Time::update();
     glow->pollEvents();
     glow->update();
-    glow->renderer->renderVAO(vaoID, vboID);
+    //TEMP
     glow->displayManager->swapWindow();
 }

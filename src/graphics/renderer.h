@@ -6,7 +6,7 @@
 #include <FTGL/ftgl.h>
 #include <iostream>
 
-#include "gameobject.h"
+#include "../gameobject.h"
 #include "vec3.h"
 #include "vec2.h"
 #include "shader.h"
@@ -15,7 +15,7 @@ namespace Glow {
 
 class Renderer{
     public:
-        Renderer();
+        Renderer(){};
         virtual ~Renderer(){};
         virtual void init() = 0;
         virtual void submit() = 0;

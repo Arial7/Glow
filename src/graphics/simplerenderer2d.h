@@ -4,8 +4,9 @@
 
 #include "renderer.h"
 
+namespace Glow {
+
 class SimpleRenderer2D : public Renderer {
-    
     public:
         SimpleRenderer2D();
         ~SimpleRenderer2D();
@@ -13,5 +14,7 @@ class SimpleRenderer2D : public Renderer {
         virtual void init();
         virtual void submit();
         virtual void flush();
+};
+
 }
 

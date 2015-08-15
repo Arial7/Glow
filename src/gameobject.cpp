@@ -1,14 +1,24 @@
 #include "gameobject.h"
 
 namespace Glow {
-
-    GameObject::GameObject(Component *input, Component *physics, 
+#ifdef GLOW_PRESET_2D
+    GameObject::GameObject(Vec2 position, Component *input, Component *physics, 
             Component *graphics){
+        position_ = position;
         input_ = input;
         physics_ = physics;
         graphics_ = graphics;
     }
-
+#elif defined GLOW_PRESET_3D
+    GameObject::GameObject(Vec3 position, Component *input, Component *physics,
+            Component *graphics){
+        position_ = position;
+        input_ = input;
+        physics_ = physics;
+        graphics_ = graphics;
+    }
+    
+#endif
     GameObject::~GameObject(){
         delete input_;
         delete physics_;

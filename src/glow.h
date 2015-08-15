@@ -3,7 +3,6 @@
 #include "presets.h"
 
 #include "displaymanager.h"
-#include "entitymanager.h"
 #include "renderer.h"
 
 
@@ -15,8 +14,6 @@ namespace Glow {
         bool quit = false;
 
         DisplayManager *displayManager;
-        EntityManager *entityManager;
-        Renderer *renderer;
 
 
         void initEngine();

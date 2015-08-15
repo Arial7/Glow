@@ -5,11 +5,8 @@
 #include <GL/glew.h>
 #include "component.h"
 
-#ifdef GLOW_PRESET_2D
-    #include "vec2.h"
-#elif defined GLOW_PRESET_3D
-    #include "vec3.h"
-#endif
+#include "vec2.h"
+#include "vec3.h"
 
 
 namespace Glow {

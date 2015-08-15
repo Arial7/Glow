@@ -1,13 +1,17 @@
 CC = g++
 
-CCFLAGS = -Wall -std=c++11 -I/usr/include/freetype2 -DGL3_PROTOTYPES=1 -march=native -g
+INTERNAL_INCLUDE_PATHS = -I./ -I./src/components -I./src/graphics -I./src/maths -I./src/utils
+
+DEFINES = -DGL3_PROTOTYPES=1
+
+CCFLAGS = -Wall -std=c++11 -I/usr/include/freetype2 $(INTERNAL_INCLUDE_PATHS) $(DEFINES) -g
 LDFLAGS = -lSDL2 -lSDL2_image -lGL -lGLU -lGLEW `pkg-config --cflags --libs ftgl`
 
 SRCDIR = src/
 OBJDIR = obj/
 
-SRC = $(wildcard $(SRCDIR)*.cpp)
-OBJ = $(addprefix obj/,$(notdir $(SRC:.cpp=.o)))
+SRC = $(shell find src/ -type f -name '*.cpp')
+OBJ = $(SRC:src/%.cpp=obj/%.o)
 
 EXECUTABLE = glow 
 
@@ -15,11 +19,8 @@ EXECUTABLE = glow
 $(EXECUTABLE):$(OBJ)
 	$(CC) $(OBJ) -o $(EXECUTABLE) $(LDFLAGS)
 
-run:$(EXECUTABLE)
-	./3d &	
-
 obj/%.o:src/%.cpp
-
+	@mkdir -p "$(@D)"
 	$(CC) -c $(CCFLAGS) $< -o $@
 
 clean:

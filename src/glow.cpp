@@ -10,14 +10,11 @@ namespace Glow {
 
     void Engine::initEngine(){
         displayManager = new DisplayManager();
-        entityManager = new EntityManager();
-        renderer = new Renderer();
 
         //TODO: make the engine read settings from somewhere
-        displayManager->createWindow(GLOW_DEFAULT_WINDOW_WIDTH,
-                GLOW_DEFAULT_WINDOW_HEIGHT, 
-                GLOW_DEFAULT_WINDOW_TITLE);
-        renderer->init();
+        displayManager->createWindow(GLOW_WINDOW_WIDTH,
+                GLOW_WINDOW_HEIGHT, 
+                GLOW_WINDOW_TITLE);
         Time::init();
     }
 
@@ -55,8 +52,6 @@ namespace Glow {
     }
 
     void Engine::update() {
-        renderer->prepare();
-        renderer->renderAll();
     }
 
     void Engine::terminateEngine(){
@@ -64,8 +59,6 @@ namespace Glow {
         SDL_Quit();
         //delete objects
         delete displayManager;
-        delete entityManager;
-        delete renderer;
     }
     
 
