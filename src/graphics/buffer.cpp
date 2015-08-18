@@ -11,6 +11,10 @@ namespace Glow {
 
     }
 
+    Buffer::~Buffer(){
+        glDeleteBuffers(1, &id_);
+    }
+
     void Buffer::bind() const {
         glBindBuffer(GL_ARRAY_BUFFER, id_);
     }

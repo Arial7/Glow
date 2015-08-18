@@ -11,6 +11,7 @@ namespace Glow {
 
         public:
             Buffer(GLfloat *data, GLsizei count, GLuint components);
+            ~Buffer();
             void bind() const;
             void unbind() const;
             GLuint getCompontents() const;
