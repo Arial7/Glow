@@ -7,14 +7,14 @@ namespace Glow {
     class Buffer {
         private:
             GLuint id_;
-            Gluint components_;
+            GLuint components_;
 
         public:
             Buffer(GLfloat *data, GLsizei count, GLuint components);
             ~Buffer();
             void bind() const;
             void unbind() const;
-            GLuint getCompontents() const;
+            GLuint getComponents() const;
 
     };
 }
