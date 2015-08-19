@@ -18,7 +18,8 @@ class DisplayManager {
         ~DisplayManager();
         void createWindow(int width, int height, const char *title);
         void destroyWindow();
-        void swapWindow();
+        void clearWindow() const;
+        void swapWindow() const;
         void window_resized(int width, int height);
         
         SDL_Window *getWindow();

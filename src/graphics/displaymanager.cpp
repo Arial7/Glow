@@ -85,7 +85,11 @@ void DisplayManager::initGL(){
 
 }
 
-void DisplayManager::swapWindow(){
+void DisplayManager::clearWindow() const {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+void DisplayManager::swapWindow() const {
     SDL_GL_SwapWindow(window_);
 }
 

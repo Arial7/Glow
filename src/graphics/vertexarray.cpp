@@ -1,4 +1,7 @@
 #include "vertexarray.h"
+#include "log.h"
+
+#include <string>
 
 namespace Glow {
  
@@ -7,10 +10,15 @@ namespace Glow {
     }
 
     VertexArray::~VertexArray(){
+        int count = 0;
         for (Buffer* buffer : buffers_){ 
-            delete buffer;
+            if(buffer != NULL){
+                delete buffer;
+                buffers_.erase(buffers_.begin());
+                count++;
+            }
         }
-
+        log(LogLevel::INFO, std::string(std::to_string(count) + " buffers deleted"));
         glDeleteVertexArrays(1, &id_);
     }
 
@@ -24,7 +32,7 @@ namespace Glow {
         buffer->unbind();
         unbind();
 
-        buffers.emplace_back(buffer);
+        buffers_.emplace_back(buffer);
     }
 
     void VertexArray::bind() const {

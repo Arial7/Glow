@@ -10,7 +10,7 @@ namespace Glow {
            Renderer *renderer_;
            float width_, height_;
         public:
-            GraphicsComponent2D(const Renderer &renderer);
+            GraphicsComponent2D(Renderer *renderer);
     
     };
 

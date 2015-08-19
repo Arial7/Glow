@@ -1,55 +1,80 @@
 #include "glow.h"
 #include "vec3.h"
 #include "time.h"
+#include "log.h"
+
 
 #include <GL/glew.h>
 
+#include "graphics/vertexarray.h"
+#include "graphics/buffer.h"
+#include "graphics/indexbuffer.h"
+#include "graphics/shader.h"
+
 using namespace Glow;
 
-float vertices[] = {
-    -1.0, -1.0, 0.0,
-     0.0,  1.0, 0.0,
-     1.0, -1.0, 0.0
+GLfloat vertices[] = {
+    -0.5, -0.5, 0,
+    -0.5,  0.5, 0,
+     0.5,  0.5, 0,
+     0.5,  -0.5, 0    
+};
+
+GLushort indices[] = {
+    0, 1, 2, 
+    2, 3, 0
 };
 
 
-GLuint vaoID;
-GLuint vboID;
-void gameloop();
-
 Engine *glow;
+
 
 
 int main(int argc, char *argv[]){
     glow = new Engine();
     glow->initEngine();
- 
-//TODO: TEMP
-    glGenVertexArrays(1, &vaoID);
-    glBindVertexArray(vaoID);
-    glEnableVertexAttribArray(0);
-    glGenBuffers(1, &vboID);
-    glBindBuffer(GL_ARRAY_BUFFER, vboID);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glDisableVertexAttribArray(0);
-    glBindVertexArray(0);
+
+    log(LogLevel::INFO, "engine initialized");
+   
+    Shader shader("res/shaders/default.vert", "res/shaders/default.frag");
+
+    VertexArray* vao = new VertexArray();
+    Buffer* vbo = new Buffer(vertices, 12, 3);
+    IndexBuffer ibo(indices, 6);
 
 
-    while(!glow->quit)
-        gameloop();
+    vao->addBuffer(vbo, 0);
+
+    while(!glow->quit){
+        Time::update();
+        glow->pollEvents();
+        glow->update();
+        
+        glow->displayManager->clearWindow();
+
+        glColor3f(1, 1, 1);
+        shader.bind();
+
+        //TEMP
+        vao->bind();
+        ibo.bind();    
+        glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
+        vao->unbind();
+        ibo.unbind();
+     
+        shader.unbind();
+
+        glow->displayManager->swapWindow();
+    }
+    
+        
     //if the gameloop exited, cleanup
     glow->terminateEngine();
+ 
+    //cleanup
     delete glow;
+    delete vao;
 
     return 0;
 }
 
-
-void gameloop(){
-    Time::update();
-    glow->pollEvents();
-    glow->update();
-    //TEMP
-    glow->displayManager->swapWindow();
-}
