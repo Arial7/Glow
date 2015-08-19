@@ -1,15 +1,15 @@
+#include <GL/glew.h>
+
 #include "glow.h"
 #include "vec3.h"
 #include "time.h"
 #include "log.h"
 
-
-#include <GL/glew.h>
-
-#include "graphics/vertexarray.h"
-#include "graphics/buffer.h"
-#include "graphics/indexbuffer.h"
 #include "graphics/shader.h"
+
+#include "graphics/buffers/vertexarray.h"
+#include "graphics/buffers/buffer.h"
+#include "graphics/buffers/indexbuffer.h"
 
 using namespace Glow;
 

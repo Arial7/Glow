@@ -14,8 +14,8 @@ void SimpleRenderer2D::init(){
 
 }
 
-void SimpleRenderer2D::submit(){
-
+void SimpleRenderer2D::submit(Renderable2D* renderable){
+    drawables_.emplace_back(renderable);
 }
 
 void SimpleRenderer2D::flush(){
