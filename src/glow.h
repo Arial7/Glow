@@ -3,7 +3,7 @@
 #include "presets.h"
 
 #include "displaymanager.h"
-#include "renderer.h"
+#include "renderer2d.h"
 #include "eventqueue.h"
 
 namespace Glow {

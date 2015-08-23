@@ -16,8 +16,8 @@ class SimpleRenderer2D : public Renderer2D {
         ~SimpleRenderer2D();
         
         virtual void init() override;
-        virtual void submit(Renderable2D* renderable) override;
-        virtual void flush() override;
+        virtual void submit(Renderable2D* renderable);
+        virtual void flush();
 };
 
 }
