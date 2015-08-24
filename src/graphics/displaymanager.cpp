@@ -1,7 +1,8 @@
 #include "displaymanager.h"
-#include "log.h"
 #include <string>
 #include <iostream>
+
+#include "../utils/log.h"
 
 namespace Glow {
 

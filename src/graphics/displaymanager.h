@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SDL2/SDL.h>
-
 #include <GL/glew.h>
 
 //TODO: maybe implement multiple windows (most games don't need that)
@@ -21,7 +20,7 @@ class DisplayManager {
         void clearWindow() const;
         void swapWindow() const;
         void window_resized(int width, int height);
-        
+
         SDL_Window *getWindow();
 
     private:

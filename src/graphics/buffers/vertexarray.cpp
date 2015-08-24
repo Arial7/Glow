@@ -1,17 +1,18 @@
 #include "vertexarray.h"
-#include "log.h"
 
 #include <string>
 
+#include "../../utils/log.h"
+
 namespace Glow {
- 
+
     VertexArray::VertexArray(){
-        glGenVertexArrays(1, &id_);       
+        glGenVertexArrays(1, &id_);
     }
 
     VertexArray::~VertexArray(){
         int count = 0;
-        for (Buffer* buffer : buffers_){ 
+        for (Buffer* buffer : buffers_){
             if(buffer != NULL){
                 delete buffer;
                 buffers_.erase(buffers_.begin());

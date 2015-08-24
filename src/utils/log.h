@@ -4,20 +4,27 @@
 
 namespace Glow {
 //TODO: implement logging on an extra thread (with a logging queue)
+//TODO: implement a log file
 
-enum LogLevel {
-    INFO,
-    WARN,
-    ERROR,
-    FATAL
-};
+    enum Loglevel {
+        INFO,
+        WARN,
+        ERROR,
+        FATAL
+    };
 
-//const char *
-void log(LogLevel level, const char *message);
-void log(LogLevel level, const char *message, const char *source);
+    class Log {
+        public:
+            static Log& logger();
+            void log(Loglevel level, std::string message);
+            void log(Loglevel level, std::string message, std::string source);
 
-//std::string
-void log(LogLevel level, std::string message);
-void log(LogLevel level, std::string message, std::string source);
+            void destroy();
+        private:
+            Log(){};
+
+            std::string getLevelString(Loglevel level);
+            void printlog(Loglevel level, std::string log);
+    };
 
 }

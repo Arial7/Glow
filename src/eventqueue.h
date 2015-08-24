@@ -1,14 +1,15 @@
 #pragma once
 
-#include "event.h"
 #include <vector>
 
+#include "event.h"
+
 namespace Glow {
-    
+
     class EventQueue {
-        private:    
-            std::vector<GlowEvent> currentEvents_;            
-        
+        private:
+            std::vector<GlowEvent> currentEvents_;
+
         public:
             EventQueue();
             ~EventQueue();

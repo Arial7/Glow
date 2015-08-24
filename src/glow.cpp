@@ -1,19 +1,17 @@
 #include "glow.h"
 
-#include "time.h"
-
 namespace Glow {
 
     Engine::Engine(){
         eventQueue = new EventQueue();
         displayManager = new DisplayManager();
-    }    
+    }
 
     void Engine::initEngine(){
-        
+
         //TODO: make the engine read settings from somewhere
         displayManager->createWindow(GLOW_WINDOW_WIDTH,
-                GLOW_WINDOW_HEIGHT, 
+                GLOW_WINDOW_HEIGHT,
                 GLOW_WINDOW_TITLE);
         Time::init();
     }
@@ -62,8 +60,6 @@ namespace Glow {
         delete displayManager;
         delete eventQueue;
     }
-    
+
 
 }
-
-

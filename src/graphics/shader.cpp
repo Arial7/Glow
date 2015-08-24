@@ -2,11 +2,10 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
 #include <iostream>
 #include <vector>
 
-#include "log.h"
+#include "../utils/log.h"
 
 namespace Glow {
 
@@ -16,7 +15,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     GLuint vertexShader, fragmentShader;
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
- 
+
     std::string *vertexString = loadFile(vertexFile);
     std::string *fragmentString = loadFile(fragmentFile);
 
@@ -31,7 +30,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
 
     //compile and check the vertex shader
     glCompileShader(vertexShader);
-    
+
     GLint result = GL_FALSE;
     int logLength;
 
@@ -42,27 +41,27 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     glGetShaderInfoLog(vertexShader, logLength, NULL, &vertShaderError[0]);
     std::string vertexErrorString(&vertShaderError[0]);
     if(vertexErrorString.compare("") != 0){
-        std::string message = std::string("error while compiling vertex shader: ") 
+        std::string message = std::string("error while compiling vertex shader: ")
             + vertexErrorString;
         log(LogLevel::ERROR, message, "Shader");
     }
-   
+
 
     //compile and check fragment shader
     glCompileShader(fragmentShader);
-    
+
     glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
     glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
     std::vector<GLchar> fragShaderError((logLength > 1) ? logLength : 1);
     glGetShaderInfoLog(fragmentShader, logLength, NULL, &fragShaderError[0]);
     std::string fragmentErrorString(&fragShaderError[0]);
     if(fragmentErrorString.compare("") != 0){
-        std::string message = std::string("error while compiling fragment shader: ") 
+        std::string message = std::string("error while compiling fragment shader: ")
             + fragmentErrorString;
         log(LogLevel::ERROR, message, "Shader");
 
     }
-    
+
     //create and link the program
     id = glCreateProgram();
 
@@ -80,7 +79,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
         std::string message = std::string("error while linking program: ") + programErrorString;
         log(LogLevel::ERROR, message, "Shader");
     }
- 
+
     //clean up the shaders
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);

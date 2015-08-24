@@ -3,11 +3,12 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "../maths/vec3.h"
 #include "buffer.h"
 
+#include "../../maths/vec3.h"
+
 namespace Glow {
- 
+
     class VertexArray {
         private:
             GLuint id_;
