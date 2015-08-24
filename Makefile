@@ -1,6 +1,6 @@
 CC = g++
 
-DEFINES = -DGL3_PROTOTYPES=1 -DGLOW_PRESET_2D
+DEFINES = -DGL3_PROTOTYPES=1 -DGLOW_PRESET_2D -DGLOW_DEBUG -DGLOW_DEBUG_VERBOSE -DGLOW_DEBUG_ABORT_ON_FATAL
 
 CCFLAGS = -Wall -std=c++11 -I/usr/include/freetype2  $(DEFINES) -g
 LDFLAGS = -lSDL2 -lSDL2_image -lGL -lGLU -lGLEW `pkg-config --cflags --libs ftgl`
