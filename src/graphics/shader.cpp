@@ -43,7 +43,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     if(vertexErrorString.compare("") != 0){
         std::string message = std::string("error while compiling vertex shader: ")
             + vertexErrorString;
-        log(LogLevel::ERROR, message, "Shader");
+        gLogger.log(Loglevel::ERROR, message, "Shader");
     }
 
 
@@ -58,7 +58,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     if(fragmentErrorString.compare("") != 0){
         std::string message = std::string("error while compiling fragment shader: ")
             + fragmentErrorString;
-        log(LogLevel::ERROR, message, "Shader");
+        gLogger.log(Loglevel::ERROR, message, "Shader");
 
     }
 
@@ -77,7 +77,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile){
     std::string programErrorString(&programError[0]);
     if(programErrorString.compare("") != 0) {
         std::string message = std::string("error while linking program: ") + programErrorString;
-        log(LogLevel::ERROR, message, "Shader");
+        gLogger.log(Loglevel::ERROR, message, "Shader");
     }
 
     //clean up the shaders
@@ -108,7 +108,7 @@ std::string *Shader::loadFile(const char *path){
         std::string msg = "file ";
         msg.append(path);
         msg.append(" could not be opened");
-        log(LogLevel::WARN, msg, "Shader");
+        gLogger.log(Loglevel::WARN, msg, "Shader");
     }
     return content;
 }

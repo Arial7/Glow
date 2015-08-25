@@ -17,7 +17,6 @@
 
 using namespace Glow;
 
-
 GLfloat vertices[] = {
     -0.5, -0.5, 0,
     -0.5,  0.5, 0,
@@ -39,7 +38,7 @@ int main(int argc, char *argv[]){
     glow = new Engine();
     glow->initEngine();
 
-    Log::logger.log(Loglevel::INFO, "engine initialized");
+    gLogger.log(Loglevel::INFO, "engine initialized");
 
     Shader shader("res/shaders/default.vert", "res/shaders/default.frag");
 

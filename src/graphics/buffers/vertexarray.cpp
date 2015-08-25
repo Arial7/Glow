@@ -19,7 +19,7 @@ namespace Glow {
                 count++;
             }
         }
-        log(LogLevel::INFO, std::string(std::to_string(count) + " buffers deleted"));
+        gLogger.log(Loglevel::INFO, std::string(std::to_string(count) + " buffers deleted"));
         glDeleteVertexArrays(1, &id_);
     }
 

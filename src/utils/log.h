@@ -13,18 +13,18 @@ namespace Glow {
         FATAL
     };
 
-    class Log {
+    class Logger {
         public:
-            static Log& logger();
+            Logger();
             void log(Loglevel level, std::string message);
             void log(Loglevel level, std::string message, std::string source);
 
-            void destroy();
         private:
-            Log(){};
-
             std::string getLevelString(Loglevel level);
             void printlog(Loglevel level, std::string log);
     };
+
+    static Logger gLogger = Logger();
+
 
 }

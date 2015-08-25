@@ -4,41 +4,39 @@
 
 namespace Glow {
 
-Log& Log::logger(){
-    static Log *instance_ = new Log();
-    return instance_;
-}
+    Logger::Logger(){
+    }
 
-    void Log::log(Loglevel level, std::string message){
+    void Logger::log(Loglevel level, std::string message){
         printlog(level, message);
     }
 
-    void Log::log(Loglevel level, std::string message, std::string source){
+    void Logger::log(Loglevel level, std::string message, std::string source){
         std::string logmessage("[" + source + "]" + message);
         printlog(level, logmessage);
     }
 
-    void Log::printlog(Loglevel level, std::string log){
+    void Logger::printlog(Loglevel level, std::string log){
         #ifdef GLOW_DEBUG
             #ifdef GLOW_DEBUG_VERBOSE
-                if level == Loglevel::INFO {
+                if (level == Loglevel::INFO) {
                     std::cout << getLevelString(level) << log << std::endl;
                 }
             #endif
 
-            if level == Loglevel::WARN || level == Loglevel::ERROR  ||
-                level == Loglevel::FATAL{
+            if (level == Loglevel::WARN || level == Loglevel::ERROR  ||
+                level == Loglevel::FATAL) {
                 std::cerr << getLevelString(level) << log << std::endl;
             }
         #endif
         #ifdef GLOW_DEBUG_ABORT_ON_FATAL
-            if level == Loglevel::FATAL {
+            if (level == Loglevel::FATAL) {
                 abort();
             }
         #endif
     }
 
-    std::string Log::getLevelString(Loglevel level){
+    std::string Logger::getLevelString(Loglevel level){
         std::string levelString;
         switch(level){
             case INFO:
@@ -57,8 +55,6 @@ Log& Log::logger(){
         return levelString;
     }
 
-    void Log::destroy(){
-        delete instance_;
-    }
+
 
 }
