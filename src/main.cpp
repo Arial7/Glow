@@ -1,5 +1,7 @@
 #include <GL/glew.h>
 
+#include <iostream>
+
 #include "glow.h"
 
 #include "graphics/shader.h"
@@ -8,11 +10,15 @@
 #include "graphics/buffers/buffer.h"
 #include "graphics/buffers/indexbuffer.h"
 
-#include "maths/vec3.h"
-
+#include "maths/vec2.h"
 
 #include "utils/time.h"
 #include "utils/log.h"
+
+
+//PLEASE NOTE:
+//This class is only used for testing. Everything in this class should be implemented by the
+//game iteself. This class is not a part of the engine
 
 
 using namespace Glow;
@@ -39,6 +45,12 @@ int main(int argc, char *argv[]){
     glow->initEngine();
 
     gLogger.log(Loglevel::INFO, "engine initialized");
+
+    Vec2 a = Vec2(1, 4);
+    a += Vec2(0, 19.5);
+
+    std::cout << a << std::endl;
+
 
     Shader shader("res/shaders/default.vert", "res/shaders/default.frag");
 
