@@ -1,6 +1,6 @@
 #include "simplerenderer2d.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
 
 SimpleRenderer2D::SimpleRenderer2D(){
 
@@ -22,4 +22,4 @@ void SimpleRenderer2D::flush(){
 
 }
 
-}
+}}

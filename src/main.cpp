@@ -22,6 +22,7 @@
 
 
 using namespace Glow;
+using namespace graphics;
 
 GLfloat vertices[] = {
     -0.5, -0.5, 0,
@@ -44,10 +45,10 @@ int main(int argc, char *argv[]){
     glow = new Engine();
     glow->initEngine();
 
-    gLogger.log(Loglevel::INFO, "engine initialized");
+    utils::gLogger.log(utils::Loglevel::INFO, "engine initialized");
 
-    Vec2 a = Vec2(1, 4);
-    a += Vec2(0, 19.5);
+    maths::vec2 a = maths::vec2(1, 4);
+    a += maths::vec2(0, 19.5);
 
     std::cout << a << std::endl;
 
@@ -62,7 +63,7 @@ int main(int argc, char *argv[]){
     vao->addBuffer(vbo, 0);
 
     while(!glow->quit){
-        Time::update();
+        utils::Time::update();
         glow->pollEvents();
         glow->update();
 

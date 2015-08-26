@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Glow {
+namespace Glow { namespace utils {
 //TODO: implement logging on an extra thread (with a logging queue)
 //TODO: implement a log file
 
@@ -27,4 +27,4 @@ namespace Glow {
     static Logger gLogger = Logger();
 
 
-}
+}}

@@ -1,7 +1,7 @@
 #include "buffer.h"
 
-namespace Glow {
-    
+namespace Glow { namespace graphics {
+
     Buffer::Buffer(GLfloat *data, GLsizei count, GLuint components){
         components_ = components;
         glGenBuffers(1, &id_);
@@ -27,4 +27,4 @@ namespace Glow {
         return components_;
     }
 
-}
+}}

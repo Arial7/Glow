@@ -4,7 +4,9 @@
 
 #include "../../utils/log.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
+
+    using namespace utils;
 
     VertexArray::VertexArray(){
         glGenVertexArrays(1, &id_);
@@ -45,4 +47,4 @@ namespace Glow {
     }
 
 
-}
+}}

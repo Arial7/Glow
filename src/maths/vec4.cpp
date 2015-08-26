@@ -1,8 +1,8 @@
 #include "vec4.h"
 
-namespace Glow {
+namespace Glow { namespace maths {
 
-    Vec4& Vec4::add(const Vec4& other){
+    vec4& vec4::add(const vec4& other){
 
         x += other.x;
         y += other.y;
@@ -11,7 +11,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::subtract(const Vec4& other){
+    vec4& vec4::subtract(const vec4& other){
 
         x -= other.x;
         y -= other.y;
@@ -20,7 +20,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::multiply(const Vec4& other){
+    vec4& vec4::multiply(const vec4& other){
 
         x *= other.x;
         y *= other.y;
@@ -29,7 +29,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::divide(const Vec4& other){
+    vec4& vec4::divide(const vec4& other){
 
         x /= other.x;
         y /= other.y;
@@ -39,7 +39,7 @@ namespace Glow {
     }
 
 
-    Vec4& Vec4::add(float other){
+    vec4& vec4::add(float other){
         x += other;
         y += other;
         z += other;
@@ -47,7 +47,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::subtract(float other){
+    vec4& vec4::subtract(float other){
         x -= other;
         y -= other;
         z -= other;
@@ -55,7 +55,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::multiply(float other){
+    vec4& vec4::multiply(float other){
         x *= other;
         y *= other;
         z *= other;
@@ -63,7 +63,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::divide(float other){
+    vec4& vec4::divide(float other){
         x /= other;
         y /= other;
         z /= other;
@@ -72,7 +72,7 @@ namespace Glow {
     }
 
 
-    Vec4& Vec4::add(float _x, float _y, float _z, float _w){
+    vec4& vec4::add(float _x, float _y, float _z, float _w){
         x += _x;
         y += _y;
         z += _z;
@@ -80,7 +80,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::subtract(float _x, float _y, float _z, float _w){
+    vec4& vec4::subtract(float _x, float _y, float _z, float _w){
         x -= _x;
         y -= _y;
         z -= _z;
@@ -88,7 +88,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::multiply(float _x, float _y, float _z, float _w){
+    vec4& vec4::multiply(float _x, float _y, float _z, float _w){
         x *= _x;
         y *= _y;
         z *= _z;
@@ -96,7 +96,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec4& Vec4::divide(float _x, float _y, float _z, float _w){
+    vec4& vec4::divide(float _x, float _y, float _z, float _w){
         x /= _x;
         y /= _y;
         z /= _z;
@@ -105,58 +105,56 @@ namespace Glow {
     }
 
 
-    bool Vec4::equals(const Vec4& other){
+    bool vec4::equals(const vec4& other){
         return x == other.x && y == other.y && z == other.z && w == other.w;
     }
 
-    Vec4& operator+(Vec4& left, const Vec4& right){
+    vec4& operator+(vec4& left, const vec4& right){
         return left.add(right);
     }
 
-    Vec4& operator-(Vec4& left, const Vec4& right){
+    vec4& operator-(vec4& left, const vec4& right){
         return left.subtract(right);
     }
 
-    Vec4& operator*(Vec4& left, const Vec4& right){
+    vec4& operator*(vec4& left, const vec4& right){
         return left.multiply(right);
     }
 
-    Vec4& operator/(Vec4& left, const Vec4& right){
+    vec4& operator/(vec4& left, const vec4& right){
         return left.divide(right);
     }
 
 
-    Vec4& Vec4::operator+=(const Vec4& other){
+    vec4& vec4::operator+=(const vec4& other){
         return add(other);
     }
 
-    Vec4& Vec4::operator-=(const Vec4& other){
+    vec4& vec4::operator-=(const vec4& other){
         return subtract(other);
     }
 
-    Vec4& Vec4::operator*=(const Vec4& other){
+    vec4& vec4::operator*=(const vec4& other){
         return multiply(other);
     }
 
-    Vec4& Vec4::operator/=(const Vec4& other) {
+    vec4& vec4::operator/=(const vec4& other) {
         return divide(other);
     }
 
-    bool Vec4::operator==(const Vec4& other) {
+    bool vec4::operator==(const vec4& other) {
         return equals(other);
     }
 
-    bool Vec4::operator!=(const Vec4& other) {
+    bool vec4::operator!=(const vec4& other) {
         return !equals(other);
     }
 
-    std::ostream& operator<<(std::ostream& stream, const Vec4& vector){
+    std::ostream& operator<<(std::ostream& stream, const vec4& vector){
 
-        stream << "Vec4: (" << vector.x << "," << vector.y << "," << vector.z
+        stream << "vec4: (" << vector.x << "," << vector.y << "," << vector.z
             << "," << vector.w << ")";
         return stream;
     }
 
-
-
-}
+}}

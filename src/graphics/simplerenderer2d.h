@@ -6,7 +6,7 @@
 #include "renderable2d.h"
 #include "renderer2d.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
 
 class SimpleRenderer2D : public Renderer2D {
     private:
@@ -14,11 +14,10 @@ class SimpleRenderer2D : public Renderer2D {
     public:
         SimpleRenderer2D();
         ~SimpleRenderer2D();
-        
+
         virtual void init() override;
         virtual void submit(Renderable2D* renderable);
         virtual void flush();
 };
 
-}
-
+}}

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-namespace Glow {
+namespace Glow { namespace utils {
 
     Logger::Logger(){
     }
@@ -55,6 +55,4 @@ namespace Glow {
         return levelString;
     }
 
-
-
-}
+}}

@@ -2,6 +2,10 @@
 
 namespace Glow {
 
+    using namespace utils;
+    using namespace graphics;
+
+    
     Engine::Engine(){
         eventQueue = new EventQueue();
         displayManager = new DisplayManager();

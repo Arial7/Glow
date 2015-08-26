@@ -4,7 +4,9 @@
 
 #include "../utils/log.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
+
+    using namespace utils;
 
     DisplayManager::~DisplayManager(){
         destroyWindow();
@@ -109,4 +111,4 @@ namespace Glow {
         return window_;
     }
 
-}
+}}

@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <string>
 
-namespace Glow {
+namespace Glow { namespace graphics {
 
 class Shader {
     public:
@@ -19,4 +19,4 @@ class Shader {
 
 };
 
-}
+}}

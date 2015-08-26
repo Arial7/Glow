@@ -7,7 +7,7 @@
 
 #include "../../maths/vec3.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
 
     class VertexArray {
         private:
@@ -21,4 +21,4 @@ namespace Glow {
             void unbind() const;
     };
 
-}
+}}

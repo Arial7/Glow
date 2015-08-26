@@ -2,9 +2,9 @@
 
 #include "renderable.h"
 
-namespace Glow {
+namespace Glow { namespace graphics {
 
-class Renderer2D{
+class Renderer2D {
     public:
         Renderer2D(){};
         virtual ~Renderer2D(){};
@@ -13,5 +13,4 @@ class Renderer2D{
         virtual void flush() = 0;
 };
 
-}
-
+}}

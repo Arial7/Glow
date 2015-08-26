@@ -3,47 +3,47 @@
 #include <iostream>
 
 
-namespace Glow {
+namespace Glow { namespace maths {
 
-    struct Vec2 {
-        Vec2() : x(0), y(0){};
-        Vec2(float _x, float _y) : x(_x), y(_y){};
-        Vec2(const Vec2 &copy) : x(copy.x), y(copy.y){};
+    struct vec2 {
+        vec2() : x(0), y(0){};
+        vec2(float _x, float _y) : x(_x), y(_y){};
+        vec2(const vec2 &copy) : x(copy.x), y(copy.y){};
 
         float x, y;
 
-        Vec2& add(const Vec2& other);
-        Vec2& subtract(const Vec2& other);
-        Vec2& multiply(const Vec2& other);
-        Vec2& divide(const Vec2& other);
+        vec2& add(const vec2& other);
+        vec2& subtract(const vec2& other);
+        vec2& multiply(const vec2& other);
+        vec2& divide(const vec2& other);
 
-        Vec2& add(float other);
-        Vec2& subtract(float other);
-        Vec2& multiply(float other);
-        Vec2& divide(float other);
+        vec2& add(float other);
+        vec2& subtract(float other);
+        vec2& multiply(float other);
+        vec2& divide(float other);
 
-        Vec2& add(float _x, float _y);
-        Vec2& subtract(float _x, float _y);
-        Vec2& multiply(float _x, float _y);
-        Vec2& divide(float _x, float _y);
+        vec2& add(float _x, float _y);
+        vec2& subtract(float _x, float _y);
+        vec2& multiply(float _x, float _y);
+        vec2& divide(float _x, float _y);
 
-        bool equals(const Vec2& other);
+        bool equals(const vec2& other);
 
-        friend Vec2& operator+(Vec2& left, const Vec2& right);
-        friend Vec2& operator-(Vec2& left, const Vec2& right);
-        friend Vec2& operator*(Vec2& left, const Vec2& right);
-        friend Vec2& operator/(Vec2& left, const Vec2& right);
+        friend vec2& operator+(vec2& left, const vec2& right);
+        friend vec2& operator-(vec2& left, const vec2& right);
+        friend vec2& operator*(vec2& left, const vec2& right);
+        friend vec2& operator/(vec2& left, const vec2& right);
 
-        Vec2& operator+=(const Vec2& other);
-        Vec2& operator-=(const Vec2& other);
-        Vec2& operator*=(const Vec2& other);
-        Vec2& operator/=(const Vec2& other);
+        vec2& operator+=(const vec2& other);
+        vec2& operator-=(const vec2& other);
+        vec2& operator*=(const vec2& other);
+        vec2& operator/=(const vec2& other);
 
-        bool operator==(const Vec2& other);
-        bool operator!=(const Vec2& other);
+        bool operator==(const vec2& other);
+        bool operator!=(const vec2& other);
 
-        friend std::ostream& operator<<(std::ostream& stream, const Vec2& vector);
+        friend std::ostream& operator<<(std::ostream& stream, const vec2& vector);
 
     };
 
-}
+}}

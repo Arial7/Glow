@@ -2,8 +2,8 @@
 
 #include <GL/glew.h>
 
-namespace Glow {
-    
+namespace Glow { namespace graphics {
+
     class Buffer {
         private:
             GLuint id_;
@@ -17,5 +17,4 @@ namespace Glow {
             GLuint getComponents() const;
 
     };
-}
-
+}}

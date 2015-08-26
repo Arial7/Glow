@@ -1,13 +1,13 @@
 #include "indexbuffer.h"
 
-namespace Glow {
-    
+namespace Glow { namespace graphics {
+
     IndexBuffer::IndexBuffer(GLushort *data, GLuint count){
         count_ = count ;
 
         glGenBuffers(1, &id_);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLushort), data, 
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, count * sizeof(GLushort), data,
                     GL_STATIC_DRAW);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
@@ -25,4 +25,4 @@ namespace Glow {
     GLuint IndexBuffer::getCount() const {
         return count_;
     }
-}
+}}

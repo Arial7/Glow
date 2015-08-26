@@ -15,7 +15,7 @@ namespace Glow {
 
         bool quit = false;
 
-        DisplayManager *displayManager;
+        graphics::DisplayManager *displayManager;
         EventQueue *eventQueue;
 
         void initEngine();

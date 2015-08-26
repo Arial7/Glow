@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include <iostream>
 
-namespace Glow {
+namespace Glow { namespace utils {
 
 static long lastTime = 0;
 static long currentTime = 0;
@@ -10,7 +10,7 @@ static long delta = 0;
 
 void Time::init() {
 	lastTime = SDL_GetTicks();
-	currentTime = SDL_GetTicks();	
+	currentTime = SDL_GetTicks();
 	delta = 0;
 }
 
@@ -28,4 +28,4 @@ float Time::deltaTimeSecs() {
 	return delta / 1000.0f;
 }
 
-}
+}}

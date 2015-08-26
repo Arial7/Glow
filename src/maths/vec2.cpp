@@ -1,8 +1,8 @@
 #include "vec2.h"
 
-namespace Glow {
+namespace Glow { namespace maths {
 
-    Vec2& Vec2::add(const Vec2& other){
+    vec2& vec2::add(const vec2& other){
 
         x += other.x;
         y += other.y;
@@ -11,7 +11,7 @@ namespace Glow {
 
     }
 
-    Vec2& Vec2::subtract(const Vec2& other){
+    vec2& vec2::subtract(const vec2& other){
 
         x -= other.x;
         y -= other.y;
@@ -19,7 +19,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec2& Vec2::multiply(const Vec2& other){
+    vec2& vec2::multiply(const vec2& other){
 
         x *= other.x;
         y *= other.y;
@@ -27,7 +27,7 @@ namespace Glow {
         return *this;
     }
 
-    Vec2& Vec2::divide(const Vec2& other){
+    vec2& vec2::divide(const vec2& other){
 
         x /= other.x;
         y /= other.y;
@@ -36,7 +36,7 @@ namespace Glow {
     }
 
 
-    Vec2& Vec2::add(float other){
+    vec2& vec2::add(float other){
 
         x += other;
         y += other;
@@ -45,7 +45,7 @@ namespace Glow {
 
     }
 
-    Vec2& Vec2::subtract(float other){
+    vec2& vec2::subtract(float other){
 
         x -= other;
         y -= other;
@@ -54,7 +54,7 @@ namespace Glow {
 
     }
 
-    Vec2& Vec2::multiply(float other){
+    vec2& vec2::multiply(float other){
 
         x *= other;
         y *= other;
@@ -63,7 +63,7 @@ namespace Glow {
 
     }
 
-    Vec2& Vec2::divide(float other){
+    vec2& vec2::divide(float other){
 
         x /= other;
         y /= other;
@@ -73,28 +73,28 @@ namespace Glow {
     }
 
 
-    Vec2& Vec2::add(float _x, float _y){
+    vec2& vec2::add(float _x, float _y){
 
         x += _x;
         y += _y;
         return *this;
     }
 
-    Vec2& Vec2::subtract(float _x, float _y){
+    vec2& vec2::subtract(float _x, float _y){
 
         x -= _x;
         y -= _y;
         return *this;
     }
 
-    Vec2& Vec2::multiply(float _x, float _y){
+    vec2& vec2::multiply(float _x, float _y){
 
         x *= _x;
         y *= _y;
         return *this;
     }
 
-    Vec2& Vec2::divide(float _x, float _y){
+    vec2& vec2::divide(float _x, float _y){
 
         x /= _x;
         y /= _y;
@@ -102,57 +102,57 @@ namespace Glow {
     }
 
 
-    bool Vec2::equals(const Vec2& other){
+    bool vec2::equals(const vec2& other){
         return x == other.x && y == other.y;
     }
 
-    Vec2& operator+(Vec2& left, const Vec2& right){
+    vec2& operator+(vec2& left, const vec2& right){
         return left.add(right);
     }
 
-    Vec2& operator-(Vec2& left, const Vec2& right){
+    vec2& operator-(vec2& left, const vec2& right){
         return left.subtract(right);
     }
 
-    Vec2& operator*(Vec2& left, const Vec2& right){
+    vec2& operator*(vec2& left, const vec2& right){
         return left.multiply(right);
     }
 
-    Vec2& operator/(Vec2& left, const Vec2& right){
+    vec2& operator/(vec2& left, const vec2& right){
         return left.divide(right);
     }
 
 
-    Vec2& Vec2::operator+=(const Vec2& other){
+    vec2& vec2::operator+=(const vec2& other){
         return add(other);
     }
 
-    Vec2& Vec2::operator-=(const Vec2& other){
+    vec2& vec2::operator-=(const vec2& other){
         return subtract(other);
     }
 
-    Vec2& Vec2::operator*=(const Vec2& other){
+    vec2& vec2::operator*=(const vec2& other){
         return multiply(other);
     }
 
-    Vec2& Vec2::operator/=(const Vec2& other) {
+    vec2& vec2::operator/=(const vec2& other) {
         return divide(other);
     }
 
-    bool Vec2::operator==(const Vec2& other) {
+    bool vec2::operator==(const vec2& other) {
         return equals(other);
     }
 
-    bool Vec2::operator!=(const Vec2& other) {
+    bool vec2::operator!=(const vec2& other) {
         return !equals(other);
     }
 
-    std::ostream& operator<<(std::ostream& stream, const Vec2& vector){
+    std::ostream& operator<<(std::ostream& stream, const vec2& vector){
 
-        stream << "Vec2: (" << vector.x << "|" << vector.y << ")";
+        stream << "vec2: (" << vector.x << "|" << vector.y << ")";
         return stream;
 
     }
 
 
-}
+}}

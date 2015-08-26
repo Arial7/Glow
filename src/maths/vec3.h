@@ -2,49 +2,49 @@
 
 #include <iostream>
 
-namespace Glow {
+namespace Glow { namespace maths {
 
 
-struct Vec3 {
-    Vec3() : x(0), y(0), z(0){};
-    Vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z){};
-    Vec3(Vec3 &vc) : x(vc.x), y(vc.y), z(vc.z){};
+struct vec3 {
+    vec3() : x(0), y(0), z(0){};
+    vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z){};
+    vec3(vec3 &vc) : x(vc.x), y(vc.y), z(vc.z){};
 
     float x, y, z;
 
-    Vec3& add(const Vec3& other);
-    Vec3& subtract(const Vec3& other);
-    Vec3& multiply(const Vec3& other);
-    Vec3& divide(const Vec3& other);
+    vec3& add(const vec3& other);
+    vec3& subtract(const vec3& other);
+    vec3& multiply(const vec3& other);
+    vec3& divide(const vec3& other);
 
-    Vec3& add(float other);
-    Vec3& subtract(float other);
-    Vec3& multiply(float other);
-    Vec3& divide(float other);
+    vec3& add(float other);
+    vec3& subtract(float other);
+    vec3& multiply(float other);
+    vec3& divide(float other);
 
-    Vec3& add(float _x, float _y, float _z);
-    Vec3& subtract(float _x, float _y, float _z);
-    Vec3& multiply(float _x, float _y, float _z);
-    Vec3& divide(float _x, float _y, float _z);
+    vec3& add(float _x, float _y, float _z);
+    vec3& subtract(float _x, float _y, float _z);
+    vec3& multiply(float _x, float _y, float _z);
+    vec3& divide(float _x, float _y, float _z);
 
-    bool equals(const Vec3& other);
+    bool equals(const vec3& other);
 
-    friend Vec3& operator+(Vec3& left, const Vec3& right);
-    friend Vec3& operator-(Vec3& left, const Vec3& right);
-    friend Vec3& operator*(Vec3& left, const Vec3& right);
-    friend Vec3& operator/(Vec3& left, const Vec3& right);
+    friend vec3& operator+(vec3& left, const vec3& right);
+    friend vec3& operator-(vec3& left, const vec3& right);
+    friend vec3& operator*(vec3& left, const vec3& right);
+    friend vec3& operator/(vec3& left, const vec3& right);
 
-    Vec3& operator+=(const Vec3& other);
-    Vec3& operator-=(const Vec3& other);
-    Vec3& operator*=(const Vec3& other);
-    Vec3& operator/=(const Vec3& other);
+    vec3& operator+=(const vec3& other);
+    vec3& operator-=(const vec3& other);
+    vec3& operator*=(const vec3& other);
+    vec3& operator/=(const vec3& other);
 
-    bool operator==(const Vec3& other);
-    bool operator!=(const Vec3& other);
+    bool operator==(const vec3& other);
+    bool operator!=(const vec3& other);
 
-    friend std::ostream& operator<<(std::ostream& stream, const Vec3& vector);
+    friend std::ostream& operator<<(std::ostream& stream, const vec3& vector);
 
 };
 
 
-}
+}}
