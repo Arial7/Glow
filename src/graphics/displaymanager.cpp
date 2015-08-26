@@ -12,7 +12,7 @@ namespace Glow { namespace graphics {
         destroyWindow();
     }
 
-    void DisplayManager::createWindow(int width, int height, const char *title){
+    void DisplayManager::createWindow(int width, int height, std::string){
         width_ = width;
         height_ = height;
         gLogger.log(Loglevel::INFO, "creating new window", "DisplayManager");
@@ -20,7 +20,7 @@ namespace Glow { namespace graphics {
         initGL();
     }
 
-    void DisplayManager::initSDL(const char *title){
+    void DisplayManager::initSDL(std::string title){
         gLogger.log(Loglevel::INFO, "initializing SDL", "DisplayManager");
         //TODO: Maybe move this call to somewhere else, as later on, audio and
         //networking have to be initialized as well.
@@ -28,7 +28,7 @@ namespace Glow { namespace graphics {
         SDL_Init(SDL_INIT_VIDEO);
 
         //create the window and check if the creation failed
-        window_ = SDL_CreateWindow(title, 0, 0, width_, height_, SDL_WINDOW_OPENGL |
+        window_ = SDL_CreateWindow(title.c_str(), 0, 0, width_, height_, SDL_WINDOW_OPENGL |
                 SDL_WINDOW_SHOWN);
         if (window_ == NULL) {
             gLogger.log(Loglevel::FATAL, "could not create window",
@@ -97,6 +97,10 @@ namespace Glow { namespace graphics {
         if(window_ != NULL)  SDL_GL_DeleteContext(context_);
         if(context_ != NULL) SDL_DestroyWindow(window_);
         //TODO:check for other things to cleanup
+    }
+
+    void DisplayManager::setWindowTitle(std::string title) {
+        SDL_SetWindowTitle(window_, title.c_str());
     }
 
     void DisplayManager::window_resized(int width, int height){
