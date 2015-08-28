@@ -1,6 +1,7 @@
 #include <GL/glew.h>
 
 #include <iostream>
+#include <string>
 
 #include "glow.h"
 
@@ -39,8 +40,12 @@ GLushort indices[] = {
 
 Engine *glow;
 
-void timeout_test(){
-    utils::gLogger.log(utils::Loglevel::INFO, "timeout callback called!");
+//FPS measureing
+int fps;
+
+void print_fps(){
+    utils::gLogger.log(utils::Loglevel::INFO, "FPS: " + std::to_string(fps));
+    fps = 0;
 }
 
 
@@ -63,8 +68,7 @@ int main(int argc, char *argv[]){
     Buffer* vbo = new Buffer(vertices, 12, 3);
     IndexBuffer ibo(indices, 6);
 
-    utils::Time::addTimeout(2000, &timeout_test);
-
+    utils::Time::addInterval(1000, &print_fps);
 
     vao->addBuffer(vbo, 0);
 
@@ -88,6 +92,8 @@ int main(int argc, char *argv[]){
         shader.unbind();
 
         glow->displayManager->swapWindow();
+
+        fps++;
     }
 
 

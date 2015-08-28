@@ -1,8 +1,8 @@
 #include "time.h"
-#include <SDL2/SDL.h>
-#include <iostream>
 
-#include "timeout.h"
+#include <iostream>
+#include <SDL2/SDL.h>
+
 
 namespace Glow { namespace utils {
 
@@ -11,6 +11,7 @@ static long currentTime = 0;
 static long delta = 0;
 
 std::vector<Timeout> Time::timeouts_;
+std::vector<Interval> Time::intervals_;
 
 void Time::init() {
 	lastTime = SDL_GetTicks();
@@ -31,7 +32,15 @@ void Time::update() {
             timeouts_.erase(timeouts_.begin() + i);
         }
     }
-    
+
+	for (unsigned int i = 0; i < intervals_.size(); i++) {
+		Interval& interval = intervals_.at(i);
+		interval.delay_ -= delta;
+		if(interval.delay_ <= 0){
+			interval.callback_();
+			interval.delay_ = interval.interval_;
+		}
+	}
 }
 
 long Time::deltaTime() {
@@ -46,5 +55,8 @@ void Time::addTimeout(long delay, void (*callback)()){
     timeouts_.emplace_back(Timeout(delay, callback));
 }
 
+void Time::addInterval(long delay, void (*callback)()){
+	intervals_.emplace_back(Interval(delay, callback));
+}
 
 }}

@@ -2,7 +2,9 @@
 #include <string>
 #include <iostream>
 
+#include "../presets.h"
 #include "../utils/log.h"
+
 
 namespace Glow { namespace graphics {
 
@@ -40,7 +42,7 @@ namespace Glow { namespace graphics {
     void DisplayManager::initGL(){
         gLogger.log(Loglevel::INFO, "initializing OpenGL", "DisplayManager");
         //Set OpenGL flags
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, GLOW_WINDOW_DOUBLEBUFFER);
         //create the OpenGL context and check if creation failed
         context_ = SDL_GL_CreateContext(window_);
         if (context_ == NULL) {
@@ -79,8 +81,9 @@ namespace Glow { namespace graphics {
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_LIGHTING);
 
-        //TODO: check for errors
+        SDL_GL_SetSwapInterval(GLOW_WINDOW_VSYNC);
 
+        //TODO: check for errors
     }
 
     void DisplayManager::clearWindow() const {
