@@ -42,13 +42,12 @@ Engine *glow;
 
 //FPS measureing
 int fps;
+int fpsCounterInterval;
 
 void print_fps(){
     utils::gLogger.log(utils::Loglevel::INFO, "FPS: " + std::to_string(fps));
     fps = 0;
 }
-
-
 
 int main(int argc, char *argv[]){
     glow = new Engine();
@@ -68,8 +67,8 @@ int main(int argc, char *argv[]){
     Buffer* vbo = new Buffer(vertices, 12, 3);
     IndexBuffer ibo(indices, 6);
 
-    utils::Time::addInterval(1000, &print_fps);
-
+    fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
+    
     vao->addBuffer(vbo, 0);
 
     while(!glow->quit){

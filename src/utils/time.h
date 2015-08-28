@@ -15,10 +15,12 @@ class Time {
 		static void update();
 
 		static void addTimeout(long delay, void (*callback)());
-		static void addInterval(long delay, void (*callback)());
+		static int addInterval(long delay, void (*callback)());
+		static void removeInterval(int id);
 	private:
 		static std::vector<Timeout> timeouts_;
 		static std::vector<Interval> intervals_;
+		static int intervalCount;
 };
 
 }}

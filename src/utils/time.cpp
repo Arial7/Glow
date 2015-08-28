@@ -13,6 +13,8 @@ static long delta = 0;
 std::vector<Timeout> Time::timeouts_;
 std::vector<Interval> Time::intervals_;
 
+int Time::intervalCount = 0;
+
 void Time::init() {
 	lastTime = SDL_GetTicks();
 	currentTime = SDL_GetTicks();
@@ -55,8 +57,17 @@ void Time::addTimeout(long delay, void (*callback)()){
     timeouts_.emplace_back(Timeout(delay, callback));
 }
 
-void Time::addInterval(long delay, void (*callback)()){
-	intervals_.emplace_back(Interval(delay, callback));
+int Time::addInterval(long delay, void (*callback)()){
+	intervalCount++;
+	intervals_.emplace_back(Interval(delay, callback, intervalCount));
+	return intervalCount;
+}
+
+void Time::removeInterval(int id){
+	for (unsigned int i = 0; i < intervals_.size(); i++){
+		if (intervals_.at(i).id_ == id)
+			intervals_.erase(intervals_.begin() + i);
+	}
 }
 
 }}
