@@ -12,7 +12,7 @@ namespace Glow { namespace graphics {
         destroyWindow();
     }
 
-    void DisplayManager::createWindow(int width, int height, std::string){
+    void DisplayManager::createWindow(int width, int height, std::string title){
         width_ = width;
         height_ = height;
         gLogger.log(Loglevel::INFO, "creating new window", "DisplayManager");

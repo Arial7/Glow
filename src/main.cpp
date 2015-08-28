@@ -39,6 +39,10 @@ GLushort indices[] = {
 
 Engine *glow;
 
+void timeout_test(){
+    utils::gLogger.log(utils::Loglevel::INFO, "timeout callback called!");
+}
+
 
 
 int main(int argc, char *argv[]){
@@ -58,6 +62,8 @@ int main(int argc, char *argv[]){
     VertexArray* vao = new VertexArray();
     Buffer* vbo = new Buffer(vertices, 12, 3);
     IndexBuffer ibo(indices, 6);
+
+    utils::Time::addTimeout(2000, &timeout_test);
 
 
     vao->addBuffer(vbo, 0);

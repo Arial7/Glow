@@ -12,9 +12,9 @@ class Time {
 		static float deltaTimeSecs();
 		static void update();
 
-		static void addTimeout(long delay);
+		static void addTimeout(long delay, void (*callback)());
 	private:
-		std::vector<Timeout> timeouts_;
+		static std::vector<Timeout> timeouts_;
 };
 
 }}
