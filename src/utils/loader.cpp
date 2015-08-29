@@ -5,34 +5,33 @@
 #include <string>
 #include <iostream>
 
+#include "log.h"
 
-namespace Glow {
+namespace Glow { namespace utils {
 
 //TODO: cleanup
 
 //This is the path of the images location
 std::string Loader::imgPath = "res/images/";
 
-//This function takes in an texture file name and returns the GLuint pointing to the OpenGL texture
-//TODO: implement mipmapping
 GLuint Loader::loadTexture(std::string name) {
 	std::string filepath(imgPath + name);
-	//This will hold the actual OpenGL texture number
 	GLuint texture;
-	//Load the image to an SDL_Surface
+
+	//Load the image to a SDL_Surface
 	SDL_Surface *surface = IMG_Load(filepath.c_str());
 	if (surface == nullptr) {
-        //TODO: logging	
+        //TODO: logging
     }
 	//generate the GL texture and tweak it a bit
 	glGenTextures(1, &texture);
 	glBindTexture(GL_TEXTURE_2D, texture);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0,
 				GL_RGBA, GL_UNSIGNED_BYTE, surface->pixels);
+
 	//Set up scaling behaviour
-	//TODO: implement mipmapping
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
 	//Do some cleanup
 	SDL_FreeSurface(surface);
@@ -43,10 +42,11 @@ GLuint Loader::loadTexture(std::string name) {
 	//Check if there are any OpenGL errors in the pipeline
 	GLenum GLError = glGetError();
 	if (GLError != GL_NO_ERROR) {
-	    //TODO: logging
+	    gLogger.log(Loglevel::ERROR, "error while loading texture " + name + ": " + std::to_string((int)GLError));
     }
-	//Print some information about the loaded texture. This is mainly for debugging
-	std::cout << "[LOADER][INFO]Loaded texture: " << filepath << std::endl;
+
+	gLogger.log(Loglevel::INFO, "texture " + name + " loaded", "Loader");
+
 	return texture;
 }
 
@@ -56,4 +56,4 @@ void Loader::deleteTexture(GLuint tex) {
 
 
 
-}
+}}

@@ -115,6 +115,10 @@ namespace Glow { namespace graphics {
         return content;
     }
 
+    GLuint Shader::getUniformLocation(std::string uniformName){
+        return glGetUniformLocation(id, uniformName.c_str());
+    }
+
     void Shader::bind(){
         glUseProgram(id);
     }

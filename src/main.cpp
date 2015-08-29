@@ -55,11 +55,6 @@ int main(int argc, char *argv[]){
 
     utils::gLogger.log(utils::Loglevel::INFO, "engine initialized");
 
-    maths::vec2 a = maths::vec2(1, 4);
-    a += maths::vec2(0, 19.5);
-
-    std::cout << a << std::endl;
-
 
     Shader shader("res/shaders/default.vert", "res/shaders/default.frag");
 
@@ -68,7 +63,7 @@ int main(int argc, char *argv[]){
     IndexBuffer ibo(indices, 6);
 
     fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
-    
+
     vao->addBuffer(vbo, 0);
 
     while(!glow->quit){

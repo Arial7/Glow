@@ -3,7 +3,7 @@
 #include <GL/glew.h>
 #include <string>
 
-namespace Glow {
+namespace Glow { namespace utils {
 
 class Loader {
 	public:
@@ -13,4 +13,4 @@ class Loader {
 		static std::string imgPath;
 };
 
-}
+}}

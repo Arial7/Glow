@@ -13,6 +13,8 @@ class Shader {
         void bind();
         void unbind();
         void bindAttribute(int attribute, const char *variableName);
+        GLuint getUniformLocation(std::string uniformName);
+
     private:
         GLuint id;
         std::string *loadFile(const char *path);
