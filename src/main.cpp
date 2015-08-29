@@ -40,7 +40,7 @@ int fps;
 int fpsCounterInterval;
 
 void print_fps(){
-    utils::gLogger.log(utils::Loglevel::INFO, "FPS: " + std::to_string(fps));
+    glow->displayManager->setWindowTitle("Glow 3D - FPS: " + std::to_string(fps));
     fps = 0;
 }
 
