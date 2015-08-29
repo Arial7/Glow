@@ -14,6 +14,7 @@
 #include "graphics/buffers/buffer.h"
 #include "graphics/buffers/indexbuffer.h"
 
+#include "maths/vec2.h"
 #include "maths/vec3.h"
 
 #include "utils/time.h"
@@ -27,18 +28,6 @@
 
 using namespace Glow;
 using namespace graphics;
-
-GLfloat vertices[] = {
-    -0.5, -0.5, 0,
-    -0.5,  0.5, 0,
-     0.5,  0.5, 0,
-     0.5,  -0.5, 0
-};
-
-GLushort indices[] = {
-    0, 1, 2,
-    2, 3, 0
-};
 
 
 Engine *glow;
@@ -64,15 +53,9 @@ int main(int argc, char *argv[]){
     renderer = new SimpleRenderer2D();
     shader = new Shader("res/shaders/default.vert", "res/shaders/default.frag");
 
-    VertexArray* vao = new VertexArray();
-    Buffer* vbo = new Buffer(vertices, 12, 3);
-    IndexBuffer ibo(indices, 6);
-
-    Renderable2D renderable(maths::vec3(0, 0, 0), *vao, ibo, shader);
+    Renderable2D renderable(maths::vec3(1, 1, 0), maths::vec2(20, 20), shader);
 
     fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
-
-    vao->addBuffer(vbo, 0);
 
     while(!glow->quit){
         utils::Time::update();
@@ -100,7 +83,6 @@ int main(int argc, char *argv[]){
 
     //cleanup
     delete glow;
-    delete vao;
 
     delete renderer;
     delete shader;

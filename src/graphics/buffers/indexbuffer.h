@@ -9,6 +9,7 @@ namespace Glow { namespace graphics {
             GLuint id_;
             GLuint count_;
         public:
+            IndexBuffer(){};
             IndexBuffer(GLushort *data, GLuint count);
             void bind() const;
             void unbind() const;

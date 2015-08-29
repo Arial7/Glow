@@ -29,6 +29,8 @@ namespace Glow { namespace graphics {
 
         SDL_Init(SDL_INIT_VIDEO);
 
+        //TODO:SDL_WINDOW_RESIZABLE -> implement callback
+
         //create the window and check if the creation failed
         window_ = SDL_CreateWindow(title.c_str(), 0, 0, width_, height_, SDL_WINDOW_OPENGL |
                 SDL_WINDOW_SHOWN);
@@ -74,6 +76,7 @@ namespace Glow { namespace graphics {
 
         //TODO: maybe swap to (0, height, width, 0);
         glViewport(0, 0, width_, height_);
+        glOrtho(0, width_ / 2, height_ / 2, 0, -1, 1);
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
