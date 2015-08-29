@@ -5,13 +5,16 @@
 
 #include "glow.h"
 
+#include "graphics/renderable2d.h"
+#include "graphics/renderer2d.h"
 #include "graphics/shader.h"
+#include "graphics/simplerenderer2d.h"
 
 #include "graphics/buffers/vertexarray.h"
 #include "graphics/buffers/buffer.h"
 #include "graphics/buffers/indexbuffer.h"
 
-#include "maths/vec2.h"
+#include "maths/vec3.h"
 
 #include "utils/time.h"
 #include "utils/log.h"
@@ -40,6 +43,9 @@ GLushort indices[] = {
 
 Engine *glow;
 
+Renderer2D* renderer;
+Shader* shader;
+
 //FPS measureing
 int fps;
 int fpsCounterInterval;
@@ -55,12 +61,14 @@ int main(int argc, char *argv[]){
 
     utils::gLogger.log(utils::Loglevel::INFO, "engine initialized");
 
-
-    Shader shader("res/shaders/default.vert", "res/shaders/default.frag");
+    renderer = new SimpleRenderer2D();
+    shader = new Shader("res/shaders/default.vert", "res/shaders/default.frag");
 
     VertexArray* vao = new VertexArray();
     Buffer* vbo = new Buffer(vertices, 12, 3);
     IndexBuffer ibo(indices, 6);
+
+    Renderable2D renderable(maths::vec3(0, 0, 0), *vao, ibo, shader);
 
     fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
 
@@ -74,17 +82,13 @@ int main(int argc, char *argv[]){
         glow->displayManager->clearWindow();
 
         glColor3f(1, 1, 1);
-        shader.bind();
 
         //TEMP
-        vao->bind();
-        ibo.bind();
-        glDrawElements(GL_TRIANGLES, ibo.getCount(), GL_UNSIGNED_SHORT, 0);
-        vao->unbind();
-        ibo.unbind();
+        renderer->submit(&renderable);
 
-        shader.unbind();
+        renderer->flush();
 
+        //after everything has been rendered, swap the framebuffers
         glow->displayManager->swapWindow();
 
         fps++;
@@ -97,6 +101,9 @@ int main(int argc, char *argv[]){
     //cleanup
     delete glow;
     delete vao;
+
+    delete renderer;
+    delete shader;
 
     return 0;
 }

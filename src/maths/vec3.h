@@ -8,7 +8,7 @@ namespace Glow { namespace maths {
 struct vec3 {
     vec3() : x(0), y(0), z(0){};
     vec3(float _x, float _y, float _z) : x(_x), y(_y), z(_z){};
-    vec3(vec3 &vc) : x(vc.x), y(vc.y), z(vc.z){};
+    vec3(const vec3& copy) : x(copy.x), y(copy.y), z(copy.z){};
 
     float x, y, z;
 
