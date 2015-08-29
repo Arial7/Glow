@@ -5,8 +5,6 @@
 
 #include "buffer.h"
 
-#include "../../maths/vec3.h"
-
 namespace Glow { namespace graphics {
 
     class VertexArray {

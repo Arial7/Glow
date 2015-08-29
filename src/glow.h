@@ -4,7 +4,6 @@
 #include "eventqueue.h"
 
 #include "graphics/displaymanager.h"
-#include "graphics/renderer2d.h"
 
 #include "utils/time.h"
 

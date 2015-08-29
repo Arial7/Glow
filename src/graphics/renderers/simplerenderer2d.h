@@ -3,8 +3,9 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "renderable2d.h"
 #include "renderer2d.h"
+
+#include "../renderable2d.h"
 
 namespace Glow { namespace graphics {
 

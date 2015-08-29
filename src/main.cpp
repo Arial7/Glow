@@ -6,16 +6,16 @@
 #include "glow.h"
 
 #include "graphics/renderable2d.h"
-#include "graphics/renderer2d.h"
 #include "graphics/shader.h"
-#include "graphics/simplerenderer2d.h"
 
 #include "graphics/buffers/vertexarray.h"
 #include "graphics/buffers/buffer.h"
 #include "graphics/buffers/indexbuffer.h"
 
-#include "maths/vec2.h"
-#include "maths/vec3.h"
+#include "graphics/renderers/renderer2d.h"
+#include "graphics/renderers/simplerenderer2d.h"
+
+#include "maths/maths.h"
 
 #include "utils/time.h"
 #include "utils/log.h"

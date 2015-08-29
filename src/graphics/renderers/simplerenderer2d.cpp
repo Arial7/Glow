@@ -2,14 +2,14 @@
 
 #include <string>
 
-#include "shader.h"
+#include "../shader.h"
 
-#include "buffers/indexbuffer.h"
-#include "buffers/vertexarray.h"
+#include "../buffers/indexbuffer.h"
+#include "../buffers/vertexarray.h"
 
-#include "../maths/vec3.h"
+#include "../../maths/maths.h"
 
-#include "../utils/log.h"
+#include "../../utils/log.h"
 
 namespace Glow { namespace graphics {
 
