@@ -6,9 +6,9 @@ namespace Glow { namespace maths {
 
     struct vec4 {
 
-        vec4() : x(0), y(0), z(0), w(0){};
+        vec4() = default;
         vec4(float _x, float _y, float _z, float _w) : x(_x), y(_y), z(_z), w(_w){};
-        vec4(vec4 &vc) : x(vc.x), y(vc.y), z(vc.z), w(vc.w){};
+        vec4(const vec4& copy) : x(copy.x), y(copy.y), z(copy.z), w(copy.w){};
 
         float x, y, z, w;
 
