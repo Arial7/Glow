@@ -1,6 +1,5 @@
 #include "maths.h"
 
-
 namespace Glow { namespace maths {
     mat4::mat4(){
         for (int i = 0; i < 4 * 4; i++)

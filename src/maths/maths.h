@@ -1,6 +1,5 @@
 #pragma once
 
-#include <math.h>
 #include "maths_func.h"
 
 #include "vec2.h"
