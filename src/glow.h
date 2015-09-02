@@ -9,18 +9,21 @@
 
 namespace Glow {
 
-    struct Engine {
-        Engine();
-
+    class Engine {
+    private:
         bool quit = false;
-
+    public:
         graphics::DisplayManager *displayManager;
         EventQueue *eventQueue;
-
+    public:
+        Engine();
         void initEngine();
-        void enterLoop();
-        void pollEvents();
-        void update();
         void terminateEngine();
+        bool shouldQuit() const;
+        void update();
+    private:
+        void pollEvents();
+
+
     };
 }

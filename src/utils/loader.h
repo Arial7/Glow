@@ -1,5 +1,6 @@
-#pragma once
+#if 0
 
+#pragma once
 #include <GL/glew.h>
 #include <string>
 
@@ -14,3 +15,4 @@ class Loader {
 };
 
 }}
+#endif

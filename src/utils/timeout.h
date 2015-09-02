@@ -3,8 +3,8 @@
 namespace Glow { namespace utils {
 
     struct Timeout {
-        Timeout (long delay, void (*callback)()) : delay_(delay), callback_(callback){};
-        long delay_;
+        Timeout (double delay, void (*callback)()) : delay_(delay), callback_(callback){};
+        double delay_;
         void (*callback_)();
     };
 }}

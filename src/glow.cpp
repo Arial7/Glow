@@ -5,7 +5,7 @@ namespace Glow {
     using namespace utils;
     using namespace graphics;
 
-    
+
     Engine::Engine(){
         eventQueue = new EventQueue();
         displayManager = new DisplayManager();
@@ -20,50 +20,26 @@ namespace Glow {
         Time::init();
     }
 
-    void Engine::enterLoop(){
-
-        while (!quit) {
-            Time::update();
-            pollEvents();
-            update();
-            displayManager->swapWindow();
-        }
-
-        terminateEngine();
-    }
-
     void Engine::pollEvents(){
-        //TODO: better event handling (callbacks?)
-        SDL_Event event;
-        while (SDL_PollEvent (&event)) {
-            switch (event.type) {
-                case SDL_QUIT:
-                    quit = true;
-                    break;
-                case SDL_WINDOWEVENT:
-                    switch (event.window.event) {
-                        case SDL_WINDOWEVENT_RESIZED:
-                                displayManager->window_resized(
-                                        (int)event.window.data1,
-                                        (int)event.window.data2);
-                                break;
-                    }
-                    break;
-            }
-        }
+        eventQueue->pollEvents();
     }
 
     void Engine::update() {
+        Time::update();
+        pollEvents();
     }
 
     void Engine::terminateEngine(){
         displayManager->destroyWindow();
-        SDL_Quit();
 
         //delete objects
         delete displayManager;
         delete eventQueue;
     }
 
+    bool Engine::shouldQuit() const {
+        return quit || displayManager->windowShouldClose();
+
+    }
 
 }

@@ -1,5 +1,4 @@
 #include "displaymanager.h"
-#include <string>
 #include <iostream>
 
 #include "../presets.h"
@@ -10,6 +9,7 @@ namespace Glow { namespace graphics {
 
     using namespace utils;
 
+
     DisplayManager::~DisplayManager(){
         destroyWindow();
     }
@@ -17,41 +17,34 @@ namespace Glow { namespace graphics {
     void DisplayManager::createWindow(int width, int height, std::string title){
         width_ = width;
         height_ = height;
+        title_ = title;
         gLogger.log(Loglevel::INFO, "creating new window", "DisplayManager");
-        initSDL(title);
+        initGLFW();
         initGL();
     }
 
-    void DisplayManager::initSDL(std::string title){
-        gLogger.log(Loglevel::INFO, "initializing SDL", "DisplayManager");
-        //TODO: Maybe move this call to somewhere else, as later on, audio and
-        //networking have to be initialized as well.
-
-        SDL_Init(SDL_INIT_VIDEO);
-
-        //TODO:SDL_WINDOW_RESIZABLE -> implement callback
+    void DisplayManager::initGLFW(){
+        gLogger.log(Loglevel::INFO, "initializing GLFW", "DisplayManager");
+        if(!glfwInit()){
+            gLogger.log(Loglevel::FATAL, "could not initialize GLFW", "DisplayManager");
+        }
 
         //create the window and check if the creation failed
-        window_ = SDL_CreateWindow(title.c_str(), 0, 0, width_, height_, SDL_WINDOW_OPENGL |
-                SDL_WINDOW_SHOWN);
-        if (window_ == NULL) {
+        window_ = glfwCreateWindow(width_, height_, title_.c_str(), NULL, NULL );
+        if (!window_) {
             gLogger.log(Loglevel::FATAL, "could not create window",
                     "DisplayManager");
             destroyWindow();
         }
+
+        glfwMakeContextCurrent(window_);
+        glfwSwapInterval(GLOW_WINDOW_VSYNC);
     }
 
     void DisplayManager::initGL(){
         gLogger.log(Loglevel::INFO, "initializing OpenGL", "DisplayManager");
         //Set OpenGL flags
-        SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, GLOW_WINDOW_DOUBLEBUFFER);
-        //create the OpenGL context and check if creation failed
-        context_ = SDL_GL_CreateContext(window_);
-        if (context_ == NULL) {
-            gLogger.log(Loglevel::FATAL, "could not create GL context",
-                    "DisplayManager");
-            destroyWindow();
-        }
+
         //initialize GLEW
         GLenum glewErr = glewInit();
         if (glewErr != GLEW_OK){
@@ -64,9 +57,7 @@ namespace Glow { namespace graphics {
         std::string glversion = (const char*)glGetString(GL_VERSION);
         if ((glversion.substr(0, 1).compare("3") != 0) &&
                glversion.substr(0, 1).compare("4") != 0) {
-            gLogger.log(Loglevel::FATAL, "OpenGL 3 is not supported");
-            gLogger.log(Loglevel::INFO, "GL_MAJOR=" + glversion.substr(0,1));
-            abort();
+            gLogger.log(Loglevel::FATAL, "OpenGL 3 or greater is not supported on this system, version is: " + glversion.substr(0, 1), "DisplayManager");
         }
         else {
             gLogger.log(Loglevel::INFO, "OpenGL Version: " + glversion,
@@ -84,7 +75,6 @@ namespace Glow { namespace graphics {
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_LIGHTING);
 
-        SDL_GL_SetSwapInterval(GLOW_WINDOW_VSYNC);
 
         //TODO: check for errors
     }
@@ -94,31 +84,33 @@ namespace Glow { namespace graphics {
     }
 
     void DisplayManager::swapWindow() const {
-        SDL_GL_SwapWindow(window_);
+        glfwSwapBuffers(window_);
     }
 
     void DisplayManager::destroyWindow(){
-        //only clean up the objects if they got created
-
-        if(window_ != NULL)  SDL_GL_DeleteContext(context_);
-        if(context_ != NULL) SDL_DestroyWindow(window_);
-        //TODO:check for other things to cleanup
-    }
-
-    void DisplayManager::setWindowTitle(std::string title) {
-        SDL_SetWindowTitle(window_, title.c_str());
-    }
-
-    void DisplayManager::window_resized(int width, int height){
-        width_ = width;
-        height_ = height;
-        glViewport(0, 0, width_, height_);
+        glfwTerminate();
     }
 
 
     //GETTERS & SETTERS
-    SDL_Window *DisplayManager::getWindow(){
+    GLFWwindow* DisplayManager::getWindow() const {
         return window_;
+    }
+
+    bool DisplayManager::windowShouldClose(){
+        return glfwWindowShouldClose(window_);
+    }
+
+    void DisplayManager::setWindowTitle(std::string title) {
+        title_ = title;
+        glfwSetWindowTitle(window_, title_.c_str());
+    }
+
+    void DisplayManager::setWindowSize(int width, int height){
+        width_ = width;
+        height_ = height;
+
+        glfwSetWindowSize(window_, width_, height_);
     }
 
 }}

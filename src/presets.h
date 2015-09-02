@@ -5,4 +5,5 @@
 #define GLOW_WINDOW_HEIGHT  720
 
 #define GLOW_WINDOW_VSYNC 1
-#define GLOW_WINDOW_DOUBLEBUFFER 1
+//TODO: implement this again
+//#define GLOW_WINDOW_DOUBLEBUFFER 1

@@ -1,7 +1,9 @@
+//TODO: refactor this class to use FreeImage or some Image loading library 
+
+#if 0
+
 #include "loader.h"
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
 #include <string>
 #include <iostream>
 
@@ -57,3 +59,5 @@ void Loader::deleteTexture(GLuint tex) {
 
 
 }}
+
+#endif

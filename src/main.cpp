@@ -45,6 +45,8 @@ void print_fps(){
 }
 
 int main(int argc, char *argv[]){
+    utils::gLogger.log(utils::Loglevel::INFO, "starting..");
+
     glow = new Engine();
     glow->initEngine();
 
@@ -57,9 +59,7 @@ int main(int argc, char *argv[]){
 
     fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
 
-    while(!glow->quit){
-        utils::Time::update();
-        glow->pollEvents();
+    while(!glow->shouldQuit()){
         glow->update();
 
         glow->displayManager->clearWindow();

@@ -1,14 +1,14 @@
 #include "time.h"
 
 #include <iostream>
-#include <SDL2/SDL.h>
+#include <GLFW/glfw3.h>
 
 
 namespace Glow { namespace utils {
 
-static long lastTime = 0;
-static long currentTime = 0;
-static long delta = 0;
+double Time::lastTime = 0;
+double Time::currentTime = 0;
+double Time::delta = 0;
 
 std::vector<Timeout> Time::timeouts_;
 std::vector<Interval> Time::intervals_;
@@ -16,13 +16,13 @@ std::vector<Interval> Time::intervals_;
 int Time::intervalCount = 0;
 
 void Time::init() {
-	lastTime = SDL_GetTicks();
-	currentTime = SDL_GetTicks();
+	lastTime = glfwGetTime();
+	currentTime = glfwGetTime();
 	delta = 0;
 }
 
 void Time::update() {
-	currentTime = SDL_GetTicks();
+	currentTime = glfwGetTime();
 	delta = currentTime - lastTime;
 	lastTime = currentTime;
 
@@ -45,19 +45,19 @@ void Time::update() {
 	}
 }
 
-long Time::deltaTime() {
+double Time::deltaTime() {
 	return delta;
 }
 
-float Time::deltaTimeSecs() {
+double Time::deltaTimeSecs() {
 	return delta / 1000.0f;
 }
 
-void Time::addTimeout(long delay, void (*callback)()){
+void Time::addTimeout(double delay, void (*callback)()){
     timeouts_.emplace_back(Timeout(delay, callback));
 }
 
-int Time::addInterval(long delay, void (*callback)()){
+int Time::addInterval(double delay, void (*callback)()){
 	intervalCount++;
 	intervals_.emplace_back(Interval(delay, callback, intervalCount));
 	return intervalCount;
