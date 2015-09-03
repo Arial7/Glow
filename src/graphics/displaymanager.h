@@ -13,7 +13,7 @@ namespace Glow { namespace graphics {
             int width_ = 0;
             int height_ = 0;
             std::string title_;
-            GLFWwindow* window_ = NULL; //only one window supported for now
+            GLFWwindow* window_ = nullptr; //only one window supported for now
         public:
             ~DisplayManager();
             void createWindow(int width, int height, std::string title);
@@ -21,17 +21,17 @@ namespace Glow { namespace graphics {
             void clearWindow() const;
             void swapWindow() const;
 
-            void framebuffer_resized(GLFWwindow* window, int width, int height);
-            //to be implemented (callbacks)
-            //friend void window_iconified(GLFWwindow* window, int iconified);
-            //friend void window_focused(GLFWwindow* window, int focused);
-
             //Getters and setters
             GLFWwindow* getWindow() const;
             bool windowShouldClose();
             void setWindowTitle(std::string title);
             void setWindowSize(int width, int height);
         private:
+            friend void framebuffer_resized(GLFWwindow* window, int width, int height);
+            //to be implemented (callbacks)
+            //friend void window_iconified(GLFWwindow* window, int iconified);
+            //friend void window_focused(GLFWwindow* window, int focused);
+            
             void initGLFW();
             void initGL();
 

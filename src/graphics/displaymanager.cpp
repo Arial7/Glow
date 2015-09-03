@@ -9,6 +9,7 @@ namespace Glow { namespace graphics {
 
     using namespace utils;
 
+    void framebuffer_resized(GLFWwindow* window, int width, int height);
 
 
     DisplayManager::~DisplayManager(){
@@ -40,13 +41,12 @@ namespace Glow { namespace graphics {
 
         glfwMakeContextCurrent(window_);
         glfwSwapInterval(GLOW_WINDOW_VSYNC);
-
-        //glfwSetFramebufferSizeCallback(window_, framebuffer_resized);
+        glfwSetWindowUserPointer(window_, this);
+        glfwSetFramebufferSizeCallback(window_, framebuffer_resized);
     }
 
     void DisplayManager::initGL(){
         gLogger.log(Loglevel::INFO, "initializing OpenGL", "DisplayManager");
-        //Set OpenGL flags
 
         //initialize GLEW
         GLenum glewErr = glewInit();
@@ -75,7 +75,6 @@ namespace Glow { namespace graphics {
         //Set the glOrtho according to the aspect ratio
         glOrtho(0, 100.0 * (widthf / heightf), 100.0 * (widthf / heightf), 0, -1, 1);
 
-        gLogger.log(Loglevel::INFO, "GL ORTHO: " + std::to_string(100.0 * ((float)width_ / (float)height_)));
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -102,10 +101,12 @@ namespace Glow { namespace graphics {
 
 
     //callbacks
-    void DisplayManager::framebuffer_resized(GLFWwindow* window, int width, int height){
+    void framebuffer_resized(GLFWwindow* window, int width, int height){
+        DisplayManager* dm = (DisplayManager*)glfwGetWindowUserPointer(window);
+        
         glViewport(0, 0, width, height);
-        height_ = height;
-        width_ = width;
+        dm->height_ = height;
+        dm->width_ = width;
     }
 
     //GETTERS & SETTERS
