@@ -55,7 +55,7 @@ int main(int argc, char *argv[]){
     renderer = new SimpleRenderer2D();
     shader = new Shader("res/shaders/default.vert", "res/shaders/default.frag");
 
-    Renderable2D renderable(maths::vec3(1, 1, 0), maths::vec2(20, 20), shader);
+    Renderable2D renderable(maths::vec3(0, 0, 0), maths::vec2(20, 20), shader);
 
     fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
 

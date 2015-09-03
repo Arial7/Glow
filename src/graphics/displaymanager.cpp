@@ -10,6 +10,7 @@ namespace Glow { namespace graphics {
     using namespace utils;
 
 
+
     DisplayManager::~DisplayManager(){
         destroyWindow();
     }
@@ -39,6 +40,8 @@ namespace Glow { namespace graphics {
 
         glfwMakeContextCurrent(window_);
         glfwSwapInterval(GLOW_WINDOW_VSYNC);
+
+        //glfwSetFramebufferSizeCallback(window_, framebuffer_resized);
     }
 
     void DisplayManager::initGL(){
@@ -67,7 +70,12 @@ namespace Glow { namespace graphics {
 
         //TODO: maybe swap to (0, height, width, 0);
         glViewport(0, 0, width_, height_);
-        glOrtho(0, width_ / 2, height_ / 2, 0, -1, 1);
+        float widthf = (float) width_;
+        float heightf = (float) height_;
+        //Set the glOrtho according to the aspect ratio
+        glOrtho(0, 100.0 * (widthf / heightf), 100.0 * (widthf / heightf), 0, -1, 1);
+
+        gLogger.log(Loglevel::INFO, "GL ORTHO: " + std::to_string(100.0 * ((float)width_ / (float)height_)));
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -91,6 +99,14 @@ namespace Glow { namespace graphics {
         glfwTerminate();
     }
 
+
+
+    //callbacks
+    void DisplayManager::framebuffer_resized(GLFWwindow* window, int width, int height){
+        glViewport(0, 0, width, height);
+        height_ = height;
+        width_ = width;
+    }
 
     //GETTERS & SETTERS
     GLFWwindow* DisplayManager::getWindow() const {

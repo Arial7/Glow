@@ -21,12 +21,12 @@ namespace Glow { namespace graphics {
             void clearWindow() const;
             void swapWindow() const;
 
+            void framebuffer_resized(GLFWwindow* window, int width, int height);
             //to be implemented (callbacks)
-            //friend void window_resized(GLFWwindow* window, int width, int height);
-            //friend void window_iconified(GLFWwindow* window, int iconified)
-            //friend void window_focused(GLFWwindow* window, int focused)
+            //friend void window_iconified(GLFWwindow* window, int iconified);
+            //friend void window_focused(GLFWwindow* window, int focused);
 
-
+            //Getters and setters
             GLFWwindow* getWindow() const;
             bool windowShouldClose();
             void setWindowTitle(std::string title);
