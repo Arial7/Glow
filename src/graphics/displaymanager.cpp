@@ -1,7 +1,9 @@
 #include "displaymanager.h"
 #include <iostream>
 
+#include "../eventqueue.h"
 #include "../presets.h"
+
 #include "../utils/log.h"
 
 
@@ -103,10 +105,15 @@ namespace Glow { namespace graphics {
     //callbacks
     void framebuffer_resized(GLFWwindow* window, int width, int height){
         DisplayManager* dm = (DisplayManager*)glfwGetWindowUserPointer(window);
-        
+
         glViewport(0, 0, width, height);
         dm->height_ = height;
         dm->width_ = width;
+    }
+    //this is just a wrapper for the method stored in window_focus_handler, because GLFW wants a function with an int as the fucused state, but using a bool is more logical
+    void window_focused(GLFWwindow* window, int focused){
+        DisplayManager* dm = (DisplayManager*)glfwGetWindowUserPointer(window);
+        dm->window_focus_handler((bool)focused);
     }
 
     //GETTERS & SETTERS
@@ -116,6 +123,10 @@ namespace Glow { namespace graphics {
 
     bool DisplayManager::windowShouldClose(){
         return glfwWindowShouldClose(window_);
+    }
+
+    void DisplayManager::setWindowShouldClose(bool close){
+        glfwSetWindowShouldClose(window_, close);
     }
 
     void DisplayManager::setWindowTitle(std::string title) {
@@ -128,6 +139,11 @@ namespace Glow { namespace graphics {
         height_ = height;
 
         glfwSetWindowSize(window_, width_, height_);
+    }
+
+    void DisplayManager::setWindowFocusHandler(void (*handler)(bool focused)){
+        window_focus_handler = handler;
+        glfwSetWindowFocusCallback(window_, window_focused);
     }
 
 }}

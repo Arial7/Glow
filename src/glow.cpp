@@ -1,5 +1,10 @@
 #include "glow.h"
 
+#include "utils/log.h"
+
+#include <GLFW/glfw3.h>
+
+
 namespace Glow {
 
     using namespace utils;
@@ -21,7 +26,7 @@ namespace Glow {
     }
 
     void Engine::pollEvents(){
-        eventQueue->pollEvents();
+        //eventQueue->pollEvents();
     }
 
     void Engine::update() {

@@ -11,8 +11,6 @@ namespace Glow {
         //delete function pointers
     }
 
-    void EventQueue::setWindowFocusHandler(const void& window_focus_event(bool focused){
-            this->window_focus_event = &window_focus_event;
-     }
+    
 
 }
