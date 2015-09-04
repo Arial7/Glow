@@ -11,24 +11,8 @@ namespace Glow {
         //delete function pointers
     }
 
-    void EventQueue::pushEvent(GlowEvent& event){
-        currentEvents_.emplace_back(event);
-    }
-
-    GlowEvent EventQueue::popEvent(){
-        if (!currentEvents_.empty()){
-            GlowEvent tempEvent(currentEvents_.front());
-            currentEvents_.erase(currentEvents_.begin());
-            return tempEvent;
-        }
-        else {
-            GlowEvent tempEvent(GLOW_EVENT_NONE);
-            return tempEvent;
-        }
-    }
-
-    void EventQueue::pollEvents(){
-        glfwPollEvents();
-    }
+    void EventQueue::setWindowFocusHandler(const void& window_focus_event(bool focused){
+            this->window_focus_event = &window_focus_event;
+     }
 
 }
