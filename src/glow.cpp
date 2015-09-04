@@ -25,13 +25,8 @@ namespace Glow {
         Time::init();
     }
 
-    void Engine::pollEvents(){
-        //eventQueue->pollEvents();
-    }
-
     void Engine::update() {
         Time::update();
-        pollEvents();
     }
 
     void Engine::terminateEngine(){

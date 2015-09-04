@@ -22,8 +22,6 @@ namespace Glow {
         bool shouldQuit() const;
         void update();
     private:
-        void pollEvents();
-
 
     };
 }
