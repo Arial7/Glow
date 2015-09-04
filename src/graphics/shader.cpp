@@ -115,8 +115,38 @@ namespace Glow { namespace graphics {
         return content;
     }
 
-    GLuint Shader::getUniformLocation(std::string uniformName){
-        return glGetUniformLocation(id, uniformName.c_str());
+    void Shader::setUniform1i(const GLchar* name, int value){
+        glUniform1i(getUniformLocation(name), value);
+    }
+
+    void Shader::setUniform1f(const GLchar* name, float value){
+        glUniform1f(getUniformLocation(name), value);
+    }
+
+    void Shader::setUniform2f(const GLchar* name, const vec2& value){
+        glUniform2f(getUniformLocation(name), value.x, value.y);
+    }
+
+    void Shader::setUniform3f(const GLchar* name, const vec3& value){
+        glUniform3f(getUniformLocation(name), value.x, value.y, value.z);
+    }
+
+    void Shader::setUniform4f(const GLchar* name, const vec4& value){
+        glUniform4f(getUniformLocation(name), value.x, value.y, value.z, value.w);
+    }
+
+    void Shader::setUniformMat4(const GLchar* name, const mat4& value){
+        glUniformMatrix4fv(getUniformLocation(name),  1, GL_FALSE, value.elements);
+    }
+
+    GLint Shader::getUniformLocation(const GLchar* uniformName){
+        for (auto itr = uniformLocations.begin(); itr != uniformLocations.end(); ++itr){
+            if (strcmp(itr->first, uniformName) == 0)
+                return itr->second;
+        }
+        std::pair<const GLchar*, GLint> newUniformLocation(uniformName, glGetUniformLocation(id, uniformName));
+        uniformLocations.insert(newUniformLocation);
+        return newUniformLocation.second;
     }
 
     void Shader::bind(){
