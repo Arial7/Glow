@@ -11,7 +11,7 @@ namespace Glow { namespace graphics {
 
     using namespace utils;
 
-    //TODO: cleanup
+    //TODO: cleanup, DRY
 
     Shader::Shader(const char *vertexFile, const char *fragmentFile){
         GLuint vertexShader, fragmentShader;
@@ -63,6 +63,11 @@ namespace Glow { namespace graphics {
             gLogger.log(Loglevel::ERROR, message, "Shader");
 
         }
+
+        //bind the attributes
+        bindAttribute(SHADER_ATTRIB_POSITION, "position");
+        bindAttribute(SHADER_ATTRIB_COLOR, "color");
+        
 
         //create and link the program
         id = glCreateProgram();

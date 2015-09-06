@@ -8,6 +8,12 @@
 #include "../maths/maths.h"
 
 
+#define SHADER_ATTRIB_POSITION  0
+#define SHADER_ATTRIB_UV        1
+//#define SHADER_ATTRIB_MASK_UV   2
+#define SHADER_ATTRIB_TEXTURE   3
+#define SHADER_ATTRIB_COLOR     5
+
 namespace Glow { namespace graphics {
 
 using namespace maths;
