@@ -29,6 +29,9 @@ void SimpleRenderer2D::flush(){
     for (unsigned int i = 0; i < drawables_.size(); i++){
         Renderable2D* renderable = drawables_.at(i);
         renderable->getShader()->bind();
+
+        renderable->getShader()->setUniformMat4("modelview_matrix", maths::mat4::translation(renderable->getPosition()));
+
         renderable->getVAO()->bind();
         renderable->getIBO().bind();
         glDrawElements(GL_TRIANGLES, renderable->getIBO().getCount(), GL_UNSIGNED_SHORT, 0);

@@ -87,6 +87,8 @@ int main(int argc, char *argv[]){
     //if the gameloop exited, cleanup
     glow->terminateEngine();
 
+    utils::gLogger.log(utils::Loglevel::INFO, "bye...");
+
     //cleanup
     delete glow;
 

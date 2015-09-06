@@ -27,10 +27,10 @@ namespace Glow { namespace graphics {
                     ibo_ = IndexBuffer(indices, 6);
 
                     GLfloat vertices[] = {
-                        position.x, position.y, position.z,
-                        position.x, position.y + size.y, position.z,
-                        position.x + size.x, position.y + size.y, position.z,
-                        position.x + size.x, position.y, position.z
+                        0, 0, 0,
+                        0, size.y, 0,
+                        size.x, size.y, 0,
+                        size.x, 0, 0
                     };
 
                     vbo_ = new Buffer(vertices, 4 * 3, 3);

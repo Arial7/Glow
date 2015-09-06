@@ -64,16 +64,17 @@ namespace Glow { namespace graphics {
 
         }
 
-        //bind the attributes
-        bindAttribute(SHADER_ATTRIB_POSITION, "position");
-        bindAttribute(SHADER_ATTRIB_COLOR, "color");
-        
 
         //create and link the program
         id = glCreateProgram();
 
         glAttachShader(id, vertexShader);
         glAttachShader(id, fragmentShader);
+
+
+        //bind the attributes
+        bindAttribute(SHADER_ATTRIB_POSITION, "position");
+        bindAttribute(SHADER_ATTRIB_COLOR, "color");
 
         glLinkProgram(id);
         //check for errors
