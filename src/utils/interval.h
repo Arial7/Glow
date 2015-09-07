@@ -8,7 +8,15 @@ namespace Glow { namespace utils {
     struct Interval {
         Interval (double interval, void (*callback)(), int id) : interval_(interval),
             delay_(interval), callback_(callback), id_(id){};
+        //If triggerInstantly = true, the cllback will be called immediately
+        Interval (double interval, void (*callback)(), int id, bool triggerInstantly) :
+            interval_(interval), callback_(callback), id_(id) {
 
+                if(triggerInstantly)
+                    delay_ = 0;
+                else
+                    delay_ = interval;
+        }
         double interval_;
         double delay_;
         void (*callback_)();

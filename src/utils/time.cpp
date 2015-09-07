@@ -63,6 +63,12 @@ int Time::addInterval(double delay, void (*callback)()){
 	return intervalCount;
 }
 
+int Time::addInterval(double delay, void (*callback)(), bool triggerInstantly){
+	intervalCount++;
+	intervals_.emplace_back(Interval(delay, callback, intervalCount, triggerInstantly));
+	return intervalCount;
+}
+
 void Time::removeInterval(int id){
 	for (unsigned int i = 0; i < intervals_.size(); i++){
 		if (intervals_.at(i).id_ == id)

@@ -17,6 +17,7 @@ class Time {
 
 		static void addTimeout(double delay, void (*callback)());
 		static int addInterval(double delay, void (*callback)());
+		static int addInterval(double delay, void (*callback)(), bool triggerInstantly);
 		static void removeInterval(int id);
 	private:
 		static double lastTime;
