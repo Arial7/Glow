@@ -27,6 +27,7 @@ namespace Glow {
 
     void Engine::update() {
         Time::update();
+        glfwPollEvents();
     }
 
     void Engine::terminateEngine(){

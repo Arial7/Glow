@@ -41,6 +41,7 @@ int fpsCounterInterval;
 
 void print_fps(){
     glow->displayManager->setWindowTitle("Glow 3D - FPS: " + std::to_string(fps));
+    utils::gLogger.log(utils::Loglevel::INFO, std::to_string(fps) + " FPS");
     fps = 0;
 }
 
@@ -62,8 +63,7 @@ int main(int argc, char *argv[]){
 
     Renderable2D renderable(maths::vec3(0, 0, 0), maths::vec2(20, 20), shader);
 
-    fpsCounterInterval = utils::Time::addInterval(1000, &print_fps);
-    utils::Time::addTimeout(1000, &exitEngine);
+    fpsCounterInterval = utils::Time::addInterval(1, &print_fps);
 
     while(!glow->shouldQuit()){
         glow->update();
