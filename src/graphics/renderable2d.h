@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "shader.h"
 
 #include "buffers/vertexarray.h"
@@ -37,7 +38,7 @@ namespace Glow { namespace graphics {
 
                     vao_->addBuffer(vbo_, 0);
 
-                    shader_->glVertexAttribPointer(SHADER_ATTRIB_POSITION, )
+                    //shader_->glVertexAttribPointer(SHADER_ATTRIB_POSITION, )
 
 
                 };
