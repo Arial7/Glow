@@ -37,9 +37,6 @@ namespace Glow { namespace graphics {
 
                     vao_->addBuffer(vbo_, 0);
 
-                    shader_->glVertexAttribPointer(SHADER_ATTRIB_POSITION, )
-
-
                 };
             ~Renderable2D(){
                 delete vbo_;

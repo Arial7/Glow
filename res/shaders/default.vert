@@ -11,8 +11,8 @@ out vec4 vs_color;
 
 
 void main(void){
-    gl_FrontColor = color;
-    gl_Position = /*projection_matrix * */ position;
-    vs_color = color;
+    gl_FrontColor = vec4(1.0, 1.0, 1.0, 1.0);
+    gl_Position = /*projection_matrix * */ position * gl_Vertex;
+    vs_color = vec4(1.0, 1.0, 1.0, 1.0);
     vs_position = position;
 }

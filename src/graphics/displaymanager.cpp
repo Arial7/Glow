@@ -75,7 +75,7 @@ namespace Glow { namespace graphics {
         float widthf = (float) width_;
         float heightf = (float) height_;
         //Set the glOrtho according to the aspect ratio
-        glOrtho(0, 100.0 * (widthf / heightf), 100.0 * (widthf / heightf), 0, -1, 1);
+        glOrtho(0, 0, 100.0 * (widthf / heightf), 100.0 * (widthf / heightf), -1, 1);
 
 
         glEnable(GL_BLEND);
