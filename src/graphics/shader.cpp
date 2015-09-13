@@ -5,6 +5,7 @@
 #include <iostream>
 #include <vector>
 
+#include "../utils/fileutils.h"
 #include "../utils/log.h"
 
 namespace Glow { namespace graphics {
@@ -18,17 +19,11 @@ namespace Glow { namespace graphics {
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        std::string *vertexString = loadFile(vertexFile);
-        std::string *fragmentString = loadFile(fragmentFile);
-
-        const char *vertexSource = vertexString->c_str();
-        const char *fragmentSource = fragmentString->c_str();
+        const char *vertexSource = File(vertexFile).read().c_str(); 
+        const char *fragmentSource = File(fragmentFile).read().c_str();
 
         glShaderSourceARB(vertexShader, 1, &vertexSource, NULL);
         glShaderSourceARB(fragmentShader, 1, &fragmentSource, NULL);
-
-        delete vertexString;
-        delete fragmentString;
 
         //compile and check the vertex shader
         glCompileShader(vertexShader);

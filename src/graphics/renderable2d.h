@@ -1,5 +1,6 @@
 #pragma once
 
+
 #include "shader.h"
 
 #include "buffers/vertexarray.h"
@@ -36,6 +37,7 @@ namespace Glow { namespace graphics {
                     vbo_ = new Buffer(vertices, 4 * 3, 3);
 
                     vao_->addBuffer(vbo_, 0);
+
 
                 };
             ~Renderable2D(){
