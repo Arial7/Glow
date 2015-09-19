@@ -19,7 +19,7 @@ namespace Glow { namespace graphics {
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        const char *vertexSource = File(vertexFile).read().c_str(); 
+        const char *vertexSource = File(vertexFile).read().c_str();
         const char *fragmentSource = File(fragmentFile).read().c_str();
 
         glShaderSourceARB(vertexShader, 1, &vertexSource, NULL);
@@ -68,8 +68,8 @@ namespace Glow { namespace graphics {
 
 
         //bind the attributes
-        bindAttribute(SHADER_ATTRIB_POSITION, "position");
-        bindAttribute(SHADER_ATTRIB_COLOR, "color");
+        //bindAttribute(SHADER_ATTRIB_POSITION, "position");
+        //bindAttribute(SHADER_ATTRIB_COLOR, "color");
 
         glLinkProgram(id);
         //check for errors
@@ -79,8 +79,7 @@ namespace Glow { namespace graphics {
         glGetProgramInfoLog(id, logLength, NULL, &programError[0]);
         std::string programErrorString(&programError[0]);
         if(programErrorString.compare("") != 0) {
-            std::string message = std::string("error while linking program: ") + programErrorString;
-            gLogger.log(Loglevel::ERROR, message, "Shader");
+            gLogger.log(Loglevel::ERROR, "error while linking program: " + programErrorString, "Shader");
         }
 
         //clean up the shaders
@@ -145,8 +144,14 @@ namespace Glow { namespace graphics {
             if (strcmp(itr->first, uniformName) == 0)
                 return itr->second;
         }
-        std::pair<const GLchar*, GLint> newUniformLocation(uniformName, glGetUniformLocation(id, uniformName));
+        uniformLoc = glGetUniformLocation(id, uniformName);
+        if (uniformLoc == -1) {
+            gLogger.log(Loglevel::FATAL, "Trying to acces non-existant unform", "Shader");
+            return NULL;
+        }
+        std::pair<const GLchar*, GLint> newUniformLocation(uniformName, uniformLoc);
         uniformLocations.insert(newUniformLocation);
+        gLogger.log(Loglevel::WARN, "Loading uniformLocation for first time", "Shader");
         return newUniformLocation.second;
     }
 
