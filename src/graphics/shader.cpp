@@ -12,8 +12,6 @@ namespace Glow { namespace graphics {
 
     using namespace utils;
 
-    //TODO: cleanup, DRY
-
     Shader::Shader(const char *vertexFile, const char *fragmentFile){
         GLuint vertexShader, fragmentShader;
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -28,27 +26,13 @@ namespace Glow { namespace graphics {
         //compile and check the vertex shader
         glCompileShader(vertexShader);
 
-        GLint result = GL_FALSE;
-        int logLength;
-
-        // Check vertex shader
-        glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &result);
-        glGetShaderiv(vertexShader, GL_INFO_LOG_LENGTH, &logLength);
-        std::vector<GLchar> vertShaderError((logLength > 1) ? logLength : 1);
-        glGetShaderInfoLog(vertexShader, logLength, NULL, &vertShaderError[0]);
-        std::string vertexErrorString(&vertShaderError[0]);
-        if(vertexErrorString.compare("") != 0){
-            std::string message = std::string("error while compiling vertex shader: ")
-                + vertexErrorString;
-            gLogger.log(Loglevel::ERROR, message, "Shader");
-        }
-
+        if (!checkCompileStatus(vertexShader))
+            return;
 
         //compile and check fragment shader
         glCompileShader(fragmentShader);
-
-
-
+        if (!checkCompileStatus(fragmentShader))
+            return;
         //create and link the program
         id = glCreateProgram();
 
@@ -60,8 +44,7 @@ namespace Glow { namespace graphics {
         //bindAttribute(SHADER_ATTRIB_COLOR, "color");
 
         glLinkProgram(id);
-        //check for errors
-
+        checkLinkStatus();
 
         //clean up the shaders
         glDeleteShader(vertexShader);
