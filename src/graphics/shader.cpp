@@ -22,8 +22,8 @@ namespace Glow { namespace graphics {
         const char *vertexSource = File(vertexFile).read().c_str();
         const char *fragmentSource = File(fragmentFile).read().c_str();
 
-        glShaderSourceARB(vertexShader, 1, &vertexSource, NULL);
-        glShaderSourceARB(fragmentShader, 1, &fragmentSource, NULL);
+        glShaderSource(vertexShader, 1, &vertexSource, NULL);
+        glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 
         //compile and check the vertex shader
         glCompileShader(vertexShader);
@@ -47,17 +47,6 @@ namespace Glow { namespace graphics {
         //compile and check fragment shader
         glCompileShader(fragmentShader);
 
-        glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &result);
-        glGetShaderiv(fragmentShader, GL_INFO_LOG_LENGTH, &logLength);
-        std::vector<GLchar> fragShaderError((logLength > 1) ? logLength : 1);
-        glGetShaderInfoLog(fragmentShader, logLength, NULL, &fragShaderError[0]);
-        std::string fragmentErrorString(&fragShaderError[0]);
-        if(fragmentErrorString.compare("") != 0){
-            std::string message = std::string("error while compiling fragment shader: ")
-                + fragmentErrorString;
-            gLogger.log(Loglevel::ERROR, message, "Shader");
-
-        }
 
 
         //create and link the program
@@ -66,21 +55,13 @@ namespace Glow { namespace graphics {
         glAttachShader(id, vertexShader);
         glAttachShader(id, fragmentShader);
 
-
         //bind the attributes
         //bindAttribute(SHADER_ATTRIB_POSITION, "position");
         //bindAttribute(SHADER_ATTRIB_COLOR, "color");
 
         glLinkProgram(id);
         //check for errors
-        glGetProgramiv(id, GL_LINK_STATUS, &result);
-        glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
-        std::vector<GLchar> programError( (logLength > 1) ? logLength : 1 );
-        glGetProgramInfoLog(id, logLength, NULL, &programError[0]);
-        std::string programErrorString(&programError[0]);
-        if(programErrorString.compare("") != 0) {
-            gLogger.log(Loglevel::ERROR, "error while linking program: " + programErrorString, "Shader");
-        }
+
 
         //clean up the shaders
         glDeleteShader(vertexShader);
@@ -88,31 +69,63 @@ namespace Glow { namespace graphics {
 
     }
 
+    bool Shader::checkCompileStatus(GLuint id){
+        GLint result = GL_FALSE;
+        GLint type;
+        int logLength;
+        glGetShaderiv(id, GL_COMPILE_STATUS, &result);
+        if (result == GL_TRUE) {
+            return true;
+        }
+        glGetShaderiv(id, GL_SHADER_TYPE, &type);
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &logLength);
+        std::vector<GLchar> errorVec((logLength > 1) ? logLength : 1);
+        glGetShaderInfoLog(id, logLength, NULL, &errorVec[0]);
+        std::string errorString(&errorVec[0]);
+        if(errorString.compare("") != 0){
+            if (type == GL_VERTEX_SHADER) {
+                gLogger.log(Loglevel::ERROR, "error while compiling vertex shader: " +
+                errorString, "Shader");
+            }
+            else if (type == GL_FRAGMENT_SHADER) {
+                gLogger.log(Loglevel::ERROR, "error while compiling fragment shader: " +
+                errorString, "Shader");
+            }
+            else {
+                //TODO: add ability to use geometry and tesselation shaders
+                gLogger.log(Loglevel::ERROR, "unknown error while compiling shader: " +
+                errorString, "Shader");
+            }
+
+        }
+        return false;
+    }
+    bool Shader::checkLinkStatus(GLuint id){
+        GLint result = GL_FALSE;
+        int logLength;
+        glGetProgramiv(id, GL_LINK_STATUS, &result);
+        if (result == GL_TRUE) {
+            return true;
+        }
+        glGetProgramiv(id, GL_INFO_LOG_LENGTH, &logLength);
+        std::vector<GLchar> errorVec( (logLength > 1) ? logLength : 1 );
+        glGetProgramInfoLog(id, logLength, NULL, &errorVec[0]);
+        std::string errorString(&errorVec[0]);
+        if(errorString.compare("") != 0) {
+            gLogger.log(Loglevel::ERROR, "error while linking program: " +
+                errorString, "Shader");
+        }
+        return false;
+    }
+
+
+
     Shader::~Shader(){
         glDeleteProgram(id);
     }
 
     void Shader::bindAttribute(int attribute, const char *variableName){
         glBindAttribLocation(id, attribute, variableName);
-    }
-
-    std::string *Shader::loadFile(const char *path){
-        std::ifstream file(path);
-        std::string line;
-        std::string *content = new std::string();
-        if(file.is_open()){
-            while(std::getline(file, line)){
-                content->append(line + "\n");
-            }
-            file.close();
-        }
-        else {
-            std::string msg = "file ";
-            msg.append(path);
-            msg.append(" could not be opened");
-            gLogger.log(Loglevel::WARN, msg, "Shader");
-        }
-        return content;
     }
 
     void Shader::setUniform1i(const GLchar* name, int value){
@@ -140,18 +153,22 @@ namespace Glow { namespace graphics {
     }
 
     GLint Shader::getUniformLocation(const GLchar* uniformName){
+        //Try to get the uniform location from the cache, as it is
+        //expensive to get them from GL
         for (auto itr = uniformLocations.begin(); itr != uniformLocations.end(); ++itr){
             if (strcmp(itr->first, uniformName) == 0)
                 return itr->second;
         }
-        uniformLoc = glGetUniformLocation(id, uniformName);
+        GLint uniformLoc = glGetUniformLocation(id, uniformName);
         if (uniformLoc == -1) {
-            gLogger.log(Loglevel::FATAL, "Trying to acces non-existant unform", "Shader");
-            return NULL;
+            gLogger.log(Loglevel::FATAL,
+                "Trying to acces non-existant uniform, check your shaders!", "Shader");
+            return -1;
         }
         std::pair<const GLchar*, GLint> newUniformLocation(uniformName, uniformLoc);
         uniformLocations.insert(newUniformLocation);
-        gLogger.log(Loglevel::WARN, "Loading uniformLocation for first time", "Shader");
+        //TODO: this is only for debugging and should be removed
+        gLogger.log(Loglevel::INFO, "Loading uniformLocation of: " + std::string(uniformName) + " for first time", "Shader");
         return newUniformLocation.second;
     }
 

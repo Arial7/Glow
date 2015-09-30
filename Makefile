@@ -9,7 +9,7 @@ CCFLAGS = -Wall -std=c++11 -I/usr/include/freetype2  $(DEFINES) -g
 CCFLAGS_PRODUCTION = -Wall -std=c++11 -I/usr/include/freetype2  $(DEFINES-PRODUCTION) -O2
 
 
-LDFLAGS = -lglfw -lGL -lGLU -lGLEW `pkg-config --cflags --libs ftgl`
+LDFLAGS = -lglfw -lGL -lGLU -lGLEW
 
 SRCDIR = src/
 OBJDIR = obj/

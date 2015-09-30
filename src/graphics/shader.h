@@ -21,7 +21,8 @@ using namespace maths;
     class Shader {
         private:
             GLuint id;
-            //this map acts as a cache for uniform locations, as it is very costly to get these.
+            //this map acts as a cache for uniform locations, as it is very
+            //expensive to get these.
             std::map<const GLchar*, GLint> uniformLocations;
         public:
             Shader(){};
@@ -39,9 +40,11 @@ using namespace maths;
             void setUniformMat4(const GLchar* name, const mat4& value);
 
         private:
-            std::string *loadFile(const char *path);
             GLint getUniformLocation(const GLchar* uniformName);
-
+            //This checks for errors during compilation
+            //returns true if no errors were found
+            bool checkCompileStatus(GLuint id);
+            bool checkLinkStatus(GLuint id);
     };
 
 }}
