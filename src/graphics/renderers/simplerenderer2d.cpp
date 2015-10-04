@@ -14,6 +14,10 @@
 namespace Glow { namespace graphics {
 
 SimpleRenderer2D::SimpleRenderer2D(){
+    vao_ = new VertexArray();
+    GLushort indices[] = {0, 1, 2, 2, 3, 0};
+    ibo_ = IndexBuffer(indices, 6);
+
 
 }
 

@@ -44,7 +44,7 @@ namespace Glow { namespace graphics {
         //bindAttribute(SHADER_ATTRIB_COLOR, "color");
 
         glLinkProgram(id);
-        checkLinkStatus();
+        checkLinkStatus(id);
 
         //clean up the shaders
         glDeleteShader(vertexShader);

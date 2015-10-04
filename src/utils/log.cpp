@@ -18,18 +18,15 @@ namespace Glow { namespace utils {
 
     void Logger::printlog(Loglevel level, std::string log){
         #ifdef GLOW_DEBUG
-            #ifdef GLOW_DEBUG_VERBOSE
-                if (level == Loglevel::INFO) {
-                    std::cout << getLevelString(level) << log << std::endl;
-                }
-            #endif
-
-            if (level == Loglevel::WARN || level == Loglevel::ERROR  ||
+            if (level == Loglevel::INFO) {
+                std::cout << getLevelString(level) << log << std::endl;
+            }
+            else if (level == Loglevel::WARN || level == Loglevel::ERROR  ||
                 level == Loglevel::FATAL) {
                 std::cerr << getLevelString(level) << log << std::endl;
             }
         #endif
-        #ifdef GLOW_DEBUG_ABORT_ON_FATAL
+        #ifndef GLOW_N_ABORT_ON_FATAL
             if (level == Loglevel::FATAL) {
                 abort();
             }
