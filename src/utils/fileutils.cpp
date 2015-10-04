@@ -16,6 +16,7 @@ std::string File::read(){
         gLogger.log(Loglevel::ERROR, "Unable to read from file: " + path_,
                "File");
     }
+
     return content;
 }
 

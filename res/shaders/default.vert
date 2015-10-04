@@ -13,7 +13,7 @@ out vec4 vs_color;
 
 void main(void){
     gl_FrontColor = vec4(1.0, 1.0, 1.0, 1.0);
-    gl_Position = vec4(translation, 1.0) * gl_Vertex;
+    gl_Position = vec4(translation, 1.0) * gl_Vertex * modelview_matrix;
     vs_color = vec4(1.0, 1.0, 1.0, 1.0);
     vs_position = vec4(position);
 }

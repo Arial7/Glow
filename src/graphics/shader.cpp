@@ -17,9 +17,11 @@ namespace Glow { namespace graphics {
         vertexShader = glCreateShader(GL_VERTEX_SHADER);
         fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 
-        const char *vertexSource = File(vertexFile).read().c_str();
-        const char *fragmentSource = File(fragmentFile).read().c_str();
-
+        std::string vertexString = File(vertexFile).read();
+        std::string fragmentString = File(fragmentFile).read();
+        const char *vertexSource = vertexString.c_str();
+        const char *fragmentSource = fragmentString.c_str();
+        
         glShaderSource(vertexShader, 1, &vertexSource, NULL);
         glShaderSource(fragmentShader, 1, &fragmentSource, NULL);
 
@@ -145,7 +147,7 @@ namespace Glow { namespace graphics {
         GLint uniformLoc = glGetUniformLocation(id, uniformName);
         if (uniformLoc == -1) {
             gLogger.log(Loglevel::FATAL,
-                "Trying to acces non-existant uniform, check your shaders!", "Shader");
+                "Trying to acces non-existant uniform: " + std::string(uniformName) + " check your shaders!", "Shader");
             return -1;
         }
         std::pair<const GLchar*, GLint> newUniformLocation(uniformName, uniformLoc);
