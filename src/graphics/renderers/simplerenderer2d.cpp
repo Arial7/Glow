@@ -34,7 +34,7 @@ void SimpleRenderer2D::flush(){
         Renderable2D* renderable = drawables_.at(i);
         renderable->getShader()->bind();
 
-        renderable->getShader()->setUniformMat4("modelview_matrix", maths::mat4::translation(renderable->getPosition()));
+//        renderable->getShader()->setUniformMat4("modelview_matrix", maths:: );
         //renderable->getShader()->setUniformMat4("projection_matrix",
             //maths::mat4::orthographic(0, 1280, 0, 720, 1, -1));
         renderable->getShader()->setUniform3f("translation", renderable->getPosition());
