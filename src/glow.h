@@ -1,27 +1,21 @@
+/* -*- C++ -*- */
+
 #pragma once
 
-#include "presets.h"
-#include "eventqueue.h"
+#include <string>
 
-#include "graphics/displaymanager.h"
 
-#include "utils/time.h"
+#include "graphics/window.h"
 
-namespace Glow {
+namespace glow {
 
     class Engine {
     private:
-        bool quit = false;
+        graphics::Window* window_;
+        void Loop();
     public:
-        graphics::DisplayManager *displayManager;
-        EventQueue *eventQueue;
-    public:
-        Engine();
-        void initEngine();
-        void terminateEngine();
-        bool shouldQuit() const;
-        void update();
-    private:
-
+        Engine(std::string windowTitle, int width, int height);
+        ~Engine();
     };
+
 }

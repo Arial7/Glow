@@ -1,30 +1,23 @@
+/* -*- C++ -*- */
+
 #pragma once
 
 #include <string>
 
-namespace Glow { namespace utils {
-//TODO: implement logging on an extra thread (with a logging queue)
-//TODO: implement a log file
+namespace glow { namespace utils {
 
-    enum Loglevel {
+    enum Level {
         INFO,
         WARN,
         ERROR,
         FATAL
     };
+    
+    void Log(Level level, std::string message);
+    void Log(Level level, char* message);
 
-    class Logger {
-        public:
-            Logger();
-            void log(Loglevel level, std::string message);
-            void log(Loglevel level, std::string message, std::string source);
 
-        private:
-            std::string getLevelString(Loglevel level);
-            void printlog(Loglevel level, std::string log);
-    };
 
-    static Logger gLogger = Logger();
 
 
 }}

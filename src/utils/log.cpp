@@ -2,40 +2,12 @@
 
 #include <iostream>
 
-namespace Glow { namespace utils {
+namespace glow{ namespace utils {
 
-    Logger::Logger(){
-    }
-
-    void Logger::log(Loglevel level, std::string message){
-        printlog(level, message);
-    }
-
-    void Logger::log(Loglevel level, std::string message, std::string source){
-        std::string logmessage("[" + source + "]" + message);
-        printlog(level, logmessage);
-    }
-
-    void Logger::printlog(Loglevel level, std::string log){
-        #ifdef GLOW_DEBUG
-            if (level == Loglevel::INFO) {
-                std::cout << getLevelString(level) << log << std::endl;
-            }
-            else if (level == Loglevel::WARN || level == Loglevel::ERROR  ||
-                level == Loglevel::FATAL) {
-                std::cerr << getLevelString(level) << log << std::endl;
-            }
-        #endif
-        #ifndef GLOW_N_ABORT_ON_FATAL
-            if (level == Loglevel::FATAL) {
-                abort();
-            }
-        #endif
-    }
-
-    std::string Logger::getLevelString(Loglevel level){
+    void Log(Level level, std::string message) {
         std::string levelString;
-        switch(level){
+
+        switch (level) {
             case INFO:
                 levelString = "[INFO]";
                 break;
@@ -49,7 +21,23 @@ namespace Glow { namespace utils {
                 levelString = "[FATAL]";
                 break;
         }
-        return levelString;
+        std::cout << "[ENGINE]" + levelString + message << std::endl;
+    }
+
+    void Log(Level level, char* message) {
+        std::string levelString;
+
+        switch (level) {
+            case INFO:
+                levelString = "[INFO]";
+            case WARN:
+                levelString = "[WARN]";
+            case ERROR:
+                levelString = "[ERROR]";
+            case FATAL:
+                levelString = "[FATAL]";
+        }
+        std::cout << "[ENGINE]" + levelString + message << std::endl;
     }
 
 }}

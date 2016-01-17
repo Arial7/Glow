@@ -1,45 +1,28 @@
 #include "glow.h"
 
-#include "utils/log.h"
-
 #include <GLFW/glfw3.h>
 
+namespace glow {
 
-namespace Glow {
+    Engine::Engine(std::string windowTitle, int width, int height) {
+        glfwInit();
+        window_ = new graphics::Window(windowTitle, width, height);
 
-    using namespace utils;
-    using namespace graphics;
+        Loop();
 
-
-    Engine::Engine(){
-        eventQueue = new EventQueue();
-        displayManager = new DisplayManager();
     }
 
-    void Engine::initEngine(){
-
-        //TODO: make the engine read settings from somewhere
-        displayManager->createWindow(GLOW_WINDOW_WIDTH,
-                GLOW_WINDOW_HEIGHT,
-                GLOW_WINDOW_TITLE);
-        Time::init();
+    Engine::~Engine() {
+        delete window_;
+        glfwTerminate();
     }
 
-    void Engine::update() {
-        Time::update();
-        glfwPollEvents();
-    }
 
-    void Engine::terminateEngine(){
-        displayManager->destroyWindow();
-
-        //delete objects
-        delete displayManager;
-        delete eventQueue;
-    }
-
-    bool Engine::shouldQuit() const {
-        return quit || displayManager->windowShouldClose();
+    void Engine::Loop() {
+        while (!window_->ShouldClose()) {
+            window_->SwapBuffers();
+            glfwPollEvents();
+        }
 
     }
 
