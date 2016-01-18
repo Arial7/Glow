@@ -4,6 +4,9 @@
 
 #include "glow.h"
 
+#include "utils/log.h"
+
+
 namespace glow {
 
     class Application {

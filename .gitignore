@@ -1,6 +1,7 @@
 #executables
 glow
 #object files
+obj/*
 *.o
 #temp files
 *~

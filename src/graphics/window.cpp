@@ -13,14 +13,14 @@ namespace glow { namespace graphics {
 
         window_ = glfwCreateWindow(width_, height_, title_.c_str(), NULL, NULL);
         if (!window_) {
-            // utils::Log(utils::Level::FATAL, "Could not create Window");
+            LOG(FATAL) << "Could not create window";
             return;
         }
 
         glfwMakeContextCurrent(window_);
         glfwSetWindowUserPointer(window_, this);
 
-        utils::Log(utils::Level::INFO, "Window created");
+        LOG(INFO) << "Window created";
 
 
     }
