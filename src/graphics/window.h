@@ -3,8 +3,7 @@
 #pragma once
 
 #include <string>
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include "../gl.h"
 
 namespace glow { namespace graphics {
 
@@ -20,6 +19,7 @@ namespace glow { namespace graphics {
 
         void SwapBuffers();
         bool ShouldClose();
+        GLFWwindow* getGLFWWindow();
     };
 
 }}

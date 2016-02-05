@@ -1,2 +1,16 @@
 2016-01-18 17:59:15,563 INFO  [default] Window created
 2016-02-05 15:44:31,632 INFO  [default] Window created
+2016-02-05 15:51:57,698 INFO  [default] Window created
+2016-02-05 19:56:19,879 INFO  [default] Window created
+2016-02-05 19:56:31,193 FATAL [default] CRASH HANDLED; Application has crashed due to [SIGINT] signal
+2016-02-05 19:56:31,193 WARN  [default] Aborting application. Reason: Fatal log at [src/utils/log.h:5583]
+2016-02-05 20:20:30,979 INFO  [default] Window created
+2016-02-05 20:22:02,335 INFO  [default] Window created
+2016-02-05 20:22:03,785 INFO  [default] Key Pressed
+2016-02-05 20:22:04,301 INFO  [default] Key Pressed
+2016-02-05 20:22:04,501 INFO  [default] Key Pressed
+2016-02-05 20:22:04,651 INFO  [default] Key Pressed
+2016-02-05 20:22:04,801 INFO  [default] Key Pressed
+2016-02-05 21:46:11,870 INFO  [default] Window created
+2016-02-05 21:47:10,013 INFO  [default] Window created
+2016-02-05 21:47:54,490 INFO  [default] Window created

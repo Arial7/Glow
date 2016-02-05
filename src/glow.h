@@ -4,8 +4,8 @@
 
 #include <string>
 
-
 #include "graphics/window.h"
+#include "input/input.h"
 
 namespace glow {
 

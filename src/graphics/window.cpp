@@ -14,14 +14,13 @@ namespace glow { namespace graphics {
         window_ = glfwCreateWindow(width_, height_, title_.c_str(), NULL, NULL);
         if (!window_) {
             LOG(FATAL) << "Could not create window";
-            return;
+            abort();
         }
 
         glfwMakeContextCurrent(window_);
         glfwSetWindowUserPointer(window_, this);
 
         LOG(INFO) << "Window created";
-
 
     }
 
@@ -35,6 +34,10 @@ namespace glow { namespace graphics {
 
     bool Window::ShouldClose() {
         return glfwWindowShouldClose(window_);
+    }
+
+    GLFWwindow* Window::getGLFWWindow() {
+        return window_;
     }
 
 }}
